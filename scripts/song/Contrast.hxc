@@ -1,0 +1,59 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import yeah.YeahUi;
+import flixel.util.FlxTimer;
+import flixel.util.FlxColor;
+
+
+class ContrastSong extends Song {
+
+  public function new()
+  {
+    super('contrast');
+  }
+
+  var introSprite:FlxSprite;
+
+  public function WAIT_TO_HIDE_INTROSPRITE() {
+    new FlxTimer().start(1, function(tmr:FlxTimer) {
+     FlxTween.tween(introSprite, { alpha: 0 }, 5, { ease: FlxEase.smootherStepInOut}); 
+   });
+    new FlxTimer().start(5, function(tmr:FlxTimer) {
+    introSprite.destroy();
+    });
+  }
+  override function onCreate() {
+
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+    
+        introSprite= new FlxSprite().makeGraphic(5000, 5000, 0xFF000000);
+        introSprite.cameras = [PlayState.instance.camHUD];
+        introSprite.zIndex = PlayState.instance.playerStrumline.zIndex + 80;
+        introSprite.setGraphicSize(5000, 5000);
+        PlayState.instance.add(introSprite); 
+
+        PlayState.instance.comboPopUps.cameras = [PlayState.instance.camGame];
+    }
+    override function onCountdownStart(event:CountdownScriptEvent):Void
+  {
+        event.cancel();
+        super.onCountdownStart(event);
+
+   
+        
+        PlayState.instance.isInCountdown = true;
+        PlayState.instance.mayPauseGame = true;
+
+        PlayState.instance.startSong();
+        WAIT_TO_HIDE_INTROSPRITE();
+  }
+  
+}

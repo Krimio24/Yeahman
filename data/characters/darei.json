@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Darei",
+    "assetPath": "characters/darei",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.1,
+    "healthIcon": {
+        "id": "darei",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "right",
+            "offsets": [
+                60,
+                193
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                26,
+                118
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                47,
+                229
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "left",
+            "offsets": [
+                15,
+                176
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                44,
+                183
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

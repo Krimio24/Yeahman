@@ -1,0 +1,164 @@
+import flixel.tweens.FlxEase;
+import funkin.play.character.SparrowCharacter;
+import flixel.tweens.FlxTween;
+import flixel.FlxCamera;
+import flixel.FlxSprite;
+import funkin.play.PlayState;
+import flixel.group.FlxTypedGroup;
+import flixel.util.FlxColor;
+import flixel.FlxG;
+import funkin.Conductor;
+import funkin.Paths;
+import funkin.util.HapticUtil;
+
+using StringTools;
+
+class PunkettSparrowCharacter extends SparrowCharacter {
+	var stickerGroup:FlxTypedGroup<FlxSprite>;
+	var darkerGroupColor:Int = 0xFFF0F0F0;
+	var initialized:Bool = false;
+	var idleTimer:Float = 0;
+	var idleSpawned:Bool = false;
+	var idleFirst:Bool = false;
+	var _lastSingAnim:String = "";
+	var _lastSingTime:Float = -1;
+    var spawn:Int = 0;
+
+	public function new() {
+		super('punkett');
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		// Inicialización segura cuando PlayState ya existe
+		if (!initialized) {
+			var game = PlayState.instance;
+			if (game != null) {
+				stickerGroup = new FlxTypedGroup();
+				// Insertar el grupo de stickers detrás del grupo del personaje (usualmente dadGroup)
+				if (game.dadGroup != null && game.members.contains(game.dadGroup)) {
+					game.insert(game.members.indexOf(game.dadGroup), stickerGroup);
+				} else {
+					game.add(stickerGroup);
+				}
+				initialized = true;
+			}
+		}
+
+		// Lógica para el sticker idle animado después de 1 segundo
+		if (!idleSpawned) {
+			idleTimer += elapsed;
+			if (idleTimer >= 1.0) {
+				playAnimation('idle', true, false, 0);
+				spawnSticker(true); // Sticker animado
+				idleSpawned = true;
+				this.alpha = 0;
+			}
+		}
+	}
+
+	// Sobrescribir playAnimation para detectar cuando canta
+	override function playAnimation(name:String, force:Bool = false, reversed:Bool = false, frame:Int = 0):Void {
+		if (!idleFirst) {
+			idleFirst = true;
+		}
+
+		super.playAnimation(name, force, reversed, frame);
+
+		this.alpha = 1;
+
+		if (name.startsWith('sing')) {
+			var curTime:Float = Conductor.instance.songPosition;
+			// Evita generar rastro si es la misma animación en el mismo frame (doble llamada)
+			// o si la animación no es forzada (como en las notas largas/sustains)
+			if (!force || (_lastSingAnim == name && _lastSingTime == curTime))
+				return;
+
+			_lastSingAnim = name;
+			_lastSingTime = curTime;
+
+			// Al empezar a cantar, busca el sticker de idle animado y lo congela.
+			for (sticker in stickerGroup.members) {
+				if (sticker != null && sticker.animation.curAnim != null && sticker.animation.curAnim.name == 'idle') {
+					sticker.animation.stop();
+					break; // Solo debería haber uno, así que salimos del bucle.
+				}
+			}
+
+			if (idleFirst) {
+				spawnSticker(false); // Sticker estático (rastro)
+				idleTimer = 0;
+				idleSpawned = false;
+			}
+		}
+	}
+
+	function spawnSticker(animated:Bool = false) {
+		soundSticker();
+
+        spawn += 1;
+		// Vibración al crear cualquier sticker (si es en móvil)
+		HapticUtil.vibrate(0, 0.1, 0.2, 0.2);
+
+		if (stickerGroup == null)
+			return;
+
+		// Oscurecer stickers anteriores
+		for (sticker in stickerGroup.members) {
+			if (sticker != null)
+				sticker.color = darkerGroupColor;
+		}
+
+		var spr = new FlxSprite(this.x, this.y);
+		spr.frames = this.frames;
+
+		// Accedemos al BPM a través de la instancia para evitar errores de acceso estático
+		var bpmWaiter:Float = Conductor.instance.bpm / 60;
+
+		// Copiar animación actual
+
+		if (animated) {
+			spr.frames = Paths.getSparrowAtlas('characters/punkett');
+			spr.animation.addByPrefix('idle', 'idle', bpmWaiter, true);
+			spr.animation.play('idle');
+            if (spawn == 1) spr.zIndex = this.zIndex + 1;
+		} else if (this.animation.curAnim != null) {
+			// Si es estático, solo copiamos el frame actual
+			spr.animation.frameIndex = this.animation.frameIndex;
+		}
+
+		spr.offset.set(this.offset.x, this.offset.y);
+		spr.angle = this.angle;
+		spr.antialiasing = this.antialiasing;
+		spr.scale.set(this.scale.x, this.scale.y);
+		spr.flipX = this.flipX;
+		spr.flipY = this.flipY;
+
+		if (!animated) {
+			// Efectos aleatorios SOLO para los rastros (no para el idle)
+			spr.angle += FlxG.random.int(-10, 10);
+			spr.offset.x += FlxG.random.int(1, 5);
+			spr.offset.y += FlxG.random.int(1, 5);
+
+			// Efecto de rebote (Pop) SOLO para rastros
+			spr.scale.set(spr.scale.x * 1.05, spr.scale.y * 1.05);
+			FlxTween.tween(spr.scale, {x: this.scale.x, y: this.scale.y}, 0.1, {ease: FlxEase.bounceOut});
+		}
+
+		stickerGroup.add(spr);
+
+		spr.cameras = this.cameras;
+		// Limitar cantidad de stickers
+		if (stickerGroup.members.length > 5) {
+			var bottomLayer = stickerGroup.members.shift();
+			if (bottomLayer != null)
+				bottomLayer.destroy();
+		}
+	}
+
+	function soundSticker() {
+		var aleatory = FlxG.random.int(1, 9);
+		FlxG.sound.play(Paths.sound('stickersounds/keys/keyClick$aleatory'));
+	}
+}

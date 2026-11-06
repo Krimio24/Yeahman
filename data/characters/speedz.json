@@ -1,0 +1,87 @@
+{
+    "version": "1.0.0",
+    "name": "Speedz",
+    "assetPath": "characters/speedz",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.9,
+    "healthIcon": {
+        "id": "dad",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singDOWN",
+            "prefix": "speeddown",
+            "offsets": [
+                -127,
+                -31
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "speedidle",
+            "offsets": [
+                -77,
+                83
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "speedleft",
+            "offsets": [
+                -29,
+                34
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "speedup",
+            "offsets": [
+                26,
+                141
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "speedright",
+            "offsets": [
+                -142,
+                60
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "laugh",
+            "prefix": "speedlaugh",
+            "offsets": [
+                -89,
+                80
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "talk",
+            "prefix": "speedtalk",
+            "offsets": [
+                -106,
+                80
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

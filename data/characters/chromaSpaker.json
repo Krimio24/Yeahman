@@ -1,0 +1,77 @@
+{
+    "version": "1.0.0",
+    "name": "Chromaspaker",
+    "assetPath": "characters/cuhSpeaker",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.7,
+    "healthIcon": {
+        "id": "gf",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 0.7
+    },
+    "animations": [
+        {
+            "name": "danceLeft",
+            "prefix": "danceLeft",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "danceRight",
+            "prefix": "danceRight",
+            "offsets": [
+                0,
+                39
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "sad",
+            "prefix": "fuck",
+            "offsets": [
+                0,
+                -16
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "talk",
+            "prefix": "talk",
+            "offsets": [
+                0,
+                -14
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "cheer50",
+            "prefix": "joyful",
+            "offsets": [
+                -4,
+                -3
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+             {
+            "name": "cheer200",
+            "prefix": "joyful",
+            "offsets": [
+                -4,
+                -3
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

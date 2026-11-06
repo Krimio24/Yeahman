@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Speed",
+    "assetPath": "characters/speed",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "speed",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                -4,
+                -5
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                -3,
+                4
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                -22,
+                -59
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                2,
+                1
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

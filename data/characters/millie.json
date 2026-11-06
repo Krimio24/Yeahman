@@ -1,0 +1,27 @@
+{
+    "version": "1.0.0",
+    "name": "Millie",
+    "assetPath": "characters/millie",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.2,
+    "healthIcon": {
+        "id": "fidy",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "millie",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

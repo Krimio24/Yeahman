@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Elikapika",
+    "assetPath": "characters/elliepadding",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.9,
+    "healthIcon": {
+        "id": "ellie",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "eidle",
+            "offsets": [
+                65,
+                52
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "eleft",
+            "offsets": [
+                113,
+                33
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "edown",
+            "offsets": [
+                55,
+                25
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "eup",
+            "offsets": [
+                36,
+                77
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "eright",
+            "offsets": [
+                -52,
+                92
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

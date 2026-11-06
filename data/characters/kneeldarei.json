@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Kneeldarei",
+    "assetPath": "characters/dareikneel",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.5,
+    "healthIcon": {
+        "id": "darei",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "KNEELINGDAREILEFT",
+            "offsets": [
+                -59,
+                -126
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "KNEELINGDAREIDOWN",
+            "offsets": [
+                -80,
+                -143
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "KNEELINGDAREIUP",
+            "offsets": [
+                -63,
+                -69
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "KNEELINGDAREIRIGHT",
+            "offsets": [
+                -44,
+                -111
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "KNEELINGDAREIIDLE",
+            "offsets": [
+                -78,
+                -121
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

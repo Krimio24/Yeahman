@@ -1,0 +1,116 @@
+{
+ "version": "2.2.4",
+ "songName": "12AM",
+ "artist": "Punkett",
+ "charter": "Punkett",
+ "divisions": 96,
+ "looped": false,
+ "offsets": {
+  "instrumental": 0,
+  "altInstrumentals": {  },
+  "vocals": {  },
+  "altVocals": {  }
+ },
+ "playData": {
+  "songVariations": [],
+  "difficulties": [
+   "normal"
+  ],
+  "characters": {
+   "player": "newbf",
+   "girlfriend": "",
+   "opponent": "punkett",
+   "instrumental": "",
+   "altInstrumentals": [],
+   "opponentVocals": [
+    "punkett"
+   ],
+   "playerVocals": [
+    "newbf"
+   ]
+  },
+  "stage": "12am",
+  "noteStyle": "yerman",
+  "ratings": {
+   "normal": 3
+  },
+  "previewStart": 77498,
+  "previewEnd": 49998
+ },
+ "generatedBy": "Friday Night Funkin' - v0.8.1",
+ "timeFormat": "ms",
+ "timeChanges": [
+  {
+   "t": 0,
+   "b": 0,
+   "bpm": 98,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 78304,
+   "b": 127.8965,
+   "bpm": 65,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 80535.0001,
+   "b": 130.3134,
+   "bpm": 125,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 83320.0001,
+   "b": 136.1155,
+   "bpm": 65,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 85620,
+   "b": 138.6072,
+   "bpm": 125,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 88178.0001,
+   "b": 143.9364,
+   "bpm": 65,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 90407.1444,
+   "b": 146.3513,
+   "bpm": 125,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 93039,
+   "b": 151.8343,
+   "bpm": 65,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 95370.5342,
+   "b": 154.3601,
+   "bpm": 125,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  }
+ ]
+}

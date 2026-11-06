@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Oliv",
+    "assetPath": "characters/yeahmanoliv",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1.7,
+    "healthIcon": {
+        "id": "face",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                -116,
+                -100
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                -107,
+                -209
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                -93,
+                -74
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                -172,
+                -244
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                -110,
+                -140
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

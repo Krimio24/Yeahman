@@ -1,0 +1,107 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.events.ScriptEvent;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import flixel.util.FlxTimer;
+import funkin.graphics.video.FunkinVideoSprite;
+import Std;
+import Math;
+import Reflect;
+import funkin.Paths;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import yeah.YeahUi;
+
+class YuhSong extends Song
+{
+
+  var videoSprite:FunkinVideoSprite;
+  var videoDestroyed:Bool = false;
+  var blackBG:FlxSprite;
+
+
+  public function new()
+  {
+    super('yuh');
+  }
+
+  override function onRetrySong() {
+            videoSprite.refresh();
+            PlayState.instance.refresh();
+         }
+  
+  override function onCreate() {
+    
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+        ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 0.01, "linear"]);
+        PlayState.instance.comboPopUps.visible = false;
+        FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, 0.1);
+
+
+
+        blackBG = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000000);
+        blackBG.screenCenter();
+        blackBG.scrollFactor.set();
+        blackBG.zIndex = PlayState.instance.playerStrumline.zIndex - 20;
+        PlayState.instance.add(blackBG);
+
+        videoSprite = new FunkinVideoSprite();
+        if (videoSprite.load(Paths.videos("YUHSTORYBOARD"))) {
+            videoSprite.bitmap.volumeAdjust = 0;
+            videoSprite.scrollFactor.set(0, 0); 
+            videoSprite.play();
+            
+            videoSprite.bitmap.onFormatSetup.add(function() {
+                var zoom:Float = FlxG.isMobile ? 0.8 : 1;
+                videoSprite.setGraphicSize(Std.int(FlxG.width * zoom), Std.int(FlxG.height * zoom));
+                videoSprite.updateHitbox();
+                videoSprite.screenCenter();
+            });
+
+            videoSprite.bitmap.onEndReached.add(function() {
+                videoDestroyed = true;
+                videoSprite.destroy();
+                blackBG.destroy();
+            });
+
+            videoSprite.zIndex = PlayState.instance.playerStrumline.zIndex - 10;
+            PlayState.instance.add(videoSprite);
+            PlayState.instance.refresh();
+        }
+    }
+
+  override function onPause(event:ScriptEvent) {
+    if (videoSprite != null && !videoDestroyed) videoSprite.pause();
+  }
+
+  override function onResume(event:ScriptEvent) {
+    if (videoSprite != null && !videoDestroyed) videoSprite.resume();
+  }
+
+
+
+  override function onCountdownStart(event:CountdownScriptEvent):Void
+  {
+        event.cancel();
+        super.onCountdownStart(event);
+
+        PlayState.instance.isInCountdown = true;
+        PlayState.instance.mayPauseGame = true;
+
+        PlayState.instance.startSong();
+  }
+      function onStepHit(event:SongTimeScriptEvent):Void {
+        super.onStepHit(event);
+        curStep = event.step;
+        switch (curStep) {     
+    case 63:
+      FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, 1);
+      var hudModule = ModuleHandler.getModule("YeahUi");
+          hudModule.scriptCall("moveBar", [2, 1.2, "cubeOut"]);
+        }
+    }
+ }

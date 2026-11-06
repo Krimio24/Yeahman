@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Dingus",
+    "assetPath": "characters/dingus-yeahman",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "bf",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "dingus idle",
+            "offsets": [
+                -9,
+                -7
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                -234,
+                -6
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                -297,
+                3
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                -300,
+                -1
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                -303,
+                -20
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

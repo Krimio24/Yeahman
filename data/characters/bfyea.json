@@ -1,0 +1,141 @@
+{
+    "version": "1.0.0",
+    "renderType": "sparrow",
+    "offsets": [
+        0,
+        -30
+    ],
+    "danceEvery": 1,
+    "scale": 0.9,
+    "name": "newbf",
+    "flipX": true,
+    "cameraOffsets": [
+        -255,
+        -230
+    ],
+    "singTime": 4,
+    "startingAnimation": "idle",
+    "isPixel": false,
+    "healthIcon": {
+        "id": "bfym"
+    },
+    "assetPath": "characters/bfyeahman",
+    "animations": [
+        {
+            "flipY": false,
+            "offsets": [
+                65,
+                52
+            ],
+            "frameRate": 24,
+            "prefix": "idlebf",
+            "flipX": false,
+            "looped": false,
+            "name": "idle"
+        },
+        {
+            "flipY": false,
+            "offsets": [
+                223,
+                -14
+            ],
+            "frameRate": 24,
+            "prefix": "leftbf",
+            "flipX": false,
+            "looped": false,
+            "name": "singLEFT"
+        },
+        {
+            "flipY": false,
+            "offsets": [
+                21,
+                37
+            ],
+            "frameRate": 24,
+            "prefix": "downbf",
+            "flipX": false,
+            "looped": false,
+            "name": "singDOWN"
+        },
+        {
+            "flipY": false,
+            "offsets": [
+                17,
+                53
+            ],
+            "frameRate": 24,
+            "prefix": "upbf",
+            "flipX": false,
+            "looped": false,
+            "name": "singUP"
+        },
+        {
+            "flipY": false,
+            "offsets": [
+                21,
+                46
+            ],
+            "frameRate": 24,
+            "prefix": "rightbf",
+            "flipX": false,
+            "looped": false,
+            "name": "singRIGHT"
+        },
+		{
+			"offsets": [
+				218,
+				-43
+			],
+			"frameIndices": [],
+			"prefix": "Leftmiss",
+			"name": "singLEFTmiss",
+			"looped": false,
+			"flipX": false,
+			"flipY": false,
+			"frameRate": 12,
+			"assetPath": null
+		},
+		{
+			"offsets": [
+				26,
+				-7
+			],
+			"frameIndices": [],
+			"prefix": "downmiss",
+			"name": "singDOWNmiss",
+			"looped": false,
+			"flipX": false,
+			"flipY": false,
+			"frameRate": 12,
+			"assetPath": null
+		},
+		{
+			"offsets": [
+				33,
+				68
+			],
+			"frameIndices": [],
+			"prefix": "upmiss",
+			"name": "singUPmiss",
+			"looped": false,
+			"flipX": false,
+			"flipY": false,
+			"frameRate": 12,
+			"assetPath": null
+		},
+		{
+			"offsets": [
+				23,
+				67
+			],
+			"frameIndices": [],
+			"prefix": "rightmiss",
+			"name": "singRIGHTmiss",
+			"looped": false,
+			"flipX": false,
+			"flipY": false,
+			"frameRate": 12,
+			"assetPath": null
+		}
+    ]
+}

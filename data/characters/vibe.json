@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Vibe",
+    "assetPath": "characters/Viber",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "vibe",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "Idle",
+            "offsets": [
+                244,
+                343
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Right",
+            "offsets": [
+                156,
+                324
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Up",
+            "offsets": [
+                89,
+                404
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Down",
+            "offsets": [
+                147,
+                267
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Left",
+            "offsets": [
+                205,
+                335
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

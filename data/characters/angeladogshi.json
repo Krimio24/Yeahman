@@ -1,0 +1,107 @@
+{
+    "version": "1.0.0",
+    "name": "Angeladogshi",
+    "assetPath": "characters/angelaDOGSHI",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.25,
+    "healthIcon": {
+        "id": "angela",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                110,
+                43
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left0",
+            "offsets": [
+                145,
+                9
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up0",
+            "offsets": [
+                79,
+                67
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right0",
+            "offsets": [
+                65,
+                22
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFTmiss",
+            "prefix": "left-miss",
+            "offsets": [
+                144,
+                14
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down0",
+            "offsets": [
+                122,
+                -51
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUPmiss",
+            "prefix": "up-miss",
+            "offsets": [
+                79,
+                74
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHTmiss",
+            "prefix": "right-miss",
+            "offsets": [
+                66,
+                28
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWNmiss",
+            "prefix": "down-miss",
+            "offsets": [
+                124,
+                -52
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

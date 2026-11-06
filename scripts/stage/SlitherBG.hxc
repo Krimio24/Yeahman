@@ -1,0 +1,138 @@
+import funkin.play.stage.Stage;
+import openfl.filters.ShaderFilter;
+import funkin.play.PlayState;
+import funkin.Paths;
+import funkin.Assets;
+import funkin.data.character.CharacterDataParser;
+import funkin.data.notestyle.NoteStyleRegistry;
+import funkin.data.song.SongNoteDataRaw;
+import funkin.util.GRhythmUtil;
+import funkin.data.song.SongDataUtils;
+import funkin.play.notes.Strumline;
+import flixel.addons.display.FlxRuntimeShader;
+import Reflect;
+import haxe.Json;
+import funkin.Conductor;
+import flixel.tweens.FlxTween;
+import funkin.graphics.FunkinSprite;
+import flixel.tweens.FlxEase;
+import funkin.modding.events.SongTimeScriptEvent;
+import funkin.modding.events.UpdateScriptEvent;
+import funkin.modding.events.CountdownScriptEvent;
+import Std;
+
+class SlithermanBgStage extends Stage
+{
+
+    public function new() {
+        super('slitherbg');
+    }
+
+    var vhsShader:FlxRuntimeShader;
+    var blackSprite:FunkinSprite;
+    var itime:Float = 0;
+    var dadStrumline:Strumline;
+    var dadNoteData:Array<SongNoteDataRaw> = [];
+
+
+    override function buildStage():Void
+    {
+        super.buildStage();
+
+       var dad = getDad();
+       var noteStyle = NoteStyleRegistry.instance.fetchEntry('yerman');
+
+       dadStrumline = new Strumline(noteStyle, false, 2.8);
+
+       var json = Json.parse(Assets.getText(Paths.json('songs/slitherman/slitherChart')));
+       var noteArray = Reflect.field(json, "notes");
+       if (!Std.isOfType(noteArray, Array)) noteArray = Reflect.field(noteArray, Reflect.fields(noteArray)[0]);
+
+       for (n in noteArray) dadNoteData.push(new SongNoteDataRaw(n.t, n.d, n.l, n.k));
+
+       dadStrumline.applyNoteData(dadNoteData);
+    
+       dadStrumline.isDownscroll = FlxG.random.bool();
+
+       dadStrumline.zIndex = 450;
+       dadStrumline.cameras = [PlayState.instance.camGame];
+              if (dadStrumline.isDownscroll = true) {
+       dadStrumline.setPosition(911 - 450, 721 - 200);
+       }
+       else {
+       dadStrumline.setPosition(911 - 450, 721 - 900);
+       }
+       dadStrumline.alpha = 0;
+       add(dadStrumline);
+       vhsShader = new FlxRuntimeShader(Assets.getText(Paths.frag('vhs')));
+       PlayState.instance.camGame.filters = [new ShaderFilter(vhsShader)];
+
+    blackSprite = new FunkinSprite();
+    blackSprite.makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000000);
+    blackSprite.screenCenter();
+    blackSprite.scrollFactor.set();
+    blackSprite.alpha = 1;
+    blackSprite.zIndex = 2000;
+    PlayState.instance.add(blackSprite);
+    blackSprite.cameras = [PlayState.instance.camHUD];
+    }
+
+    override function onSongRetry() {
+    blackSprite.alpha = 1;
+    }
+    override function onCountdownStart(event:CountdownScriptEvent) {
+        super.onCountdownStart(event);
+        dadStrumline.handleSkippedNotes();
+        dadStrumline.vwooshInNotes();
+    }
+    override function onCountdownEnd(event:CountdownScriptEvent) {
+        super.onCountdownEnd(event);
+        blackSprite.alpha = 0;
+    }
+
+    override function onBeatHit(event:SongTimeScriptEvent) {
+        super.onBeatHit(event);
+        dadStrumline.onBeatHit();
+    }
+
+    override function onUpdate(event:UpdateScriptEvent)
+    {
+        super.onUpdate(event);
+        itime += event.elapsed;
+        if (vhsShader != null) vhsShader.setFloat('uTime', itime);
+
+        processDadNotes(event.elapsed);
+    }
+
+    function processDadNotes(elapsed:Float) {
+        var dad = getDad();
+        for (note in dadStrumline.notes.members) {
+            if (note == null || !note.alive) continue;
+
+            var r = GRhythmUtil.processWindow(note, false);
+            if (r.botplayHit) {
+                dadStrumline.hitNote(note);
+                // Si quieres que el personaje cante estas notas:
+                if (dad != null) {
+                    dad.playSingAnimation(note.noteData.getDirection());
+                    dad.holdTimer = 0;
+                }
+            }
+        }
+
+        for (holdNote in dadStrumline.holdNotes.members) {
+            if (holdNote == null || !holdNote.alive) continue;
+            if (holdNote.hitNote && !holdNote.missedNote && holdNote.sustainLength > 0) {
+                if (dad != null && dad.isSinging()) dad.holdTimer = 0;
+            }
+        }
+    }
+
+    override function onStepHit(event:SongTimeScriptEvent):Void {
+    super.onStepHit(event);
+    switch (event.step) {  
+        case 62:
+        FlxTween.tween(dadStrumline, {alpha: 1}, 1, {ease: FlxEase.cubeOut});
+    }
+  }
+}

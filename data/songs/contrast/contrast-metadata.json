@@ -1,0 +1,59 @@
+{
+ "version": "2.2.4",
+ "songName": "Contrast",
+ "artist": "Fueg0",
+ "charter": "SuitMan",
+ "looped": false,
+ "offsets": {
+  "instrumental": 0,
+  "altInstrumentals": {  },
+  "vocals": {  },
+  "altVocals": {  }
+ },
+ "playData": {
+  "songVariations": [],
+  "difficulties": [
+   "normal"
+  ],
+  "characters": {
+   "player": "newbf",
+   "girlfriend": "chromaSpaker",
+   "opponent": "chroma",
+   "instrumental": "",
+   "opponentVocals": [
+    "chroma"
+   ],
+   "playerVocals": [
+    "newbf"
+   ]
+  },
+  "stage": "chormabg",
+  "noteStyle": "yerman",
+  "stickerPack": "yr",
+  "ratings": {
+   "normal": 0
+  },
+  "previewStart": 0,
+  "previewEnd": 0
+ },
+ "generatedBy": "Friday Night Funkin' - v0.8.1",
+ "timeFormat": "ms",
+ "timeChanges": [
+  {
+   "t": 0,
+   "b": 0,
+   "bpm": 110,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  },
+  {
+   "t": 3909,
+   "b": 7.1665,
+   "bpm": 110,
+   "n": 4,
+   "d": 4,
+   "bt": [4, 4, 4, 4]
+  }
+ ]
+}

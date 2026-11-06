@@ -1,0 +1,260 @@
+import ButtonProperties;
+
+import funkin.ui.MusicBeatState;
+import funkin.graphics.FunkinSprite;
+import funkin.Paths;
+import flixel.group.FlxSpriteGroup;
+import funkin.graphics.FunkinCamera;
+import flixel.FlxObject;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxG;
+import flixel.math.FlxMath;
+import funkin.util.TouchUtil;
+import funkin.util.ReflectUtil;
+import funkin.modding.base.ScriptedMusicBeatState;
+import funkin.ui.transition.stickers.StickerSubState;
+import funkin.ui.mainmenu.MainMenuState; // Ejemplo para fallback
+import funkin.save.Save;
+import funkin.mobile.ui.FunkinBackButton;
+import funkin.util.HapticUtil;
+
+class MapState extends MusicBeatState {
+
+    var residentsButton:FunkinSprite;
+    var forestButton:FunkinSprite;
+    var desertButton:FunkinSprite;
+    var lakeButton:FunkinSprite;
+    var plazaButton:FunkinSprite;
+    var yorkButton:FunkinSprite;
+    var exButton:FunkinSprite;
+    var buttonsGroup:FlxSpriteGroup;
+    var backButton:FunkinBackButton;
+    var map:FunkinSprite;
+    var camUi:FunkinCamera;
+    var lockIcons:Array<FunkinSprite> = []; 
+    
+    var buttons:Array<FunkinSprite> = [];
+    var lastHovered:FunkinSprite = null;
+    var curSelected:Int = 0;
+    var unlockedStates:Array<Bool> = [true, false, false, false, false, false, false];
+
+    function boringStuff() {
+        FlxG.mouse.visible = true; 
+
+        camUi = new FunkinCamera('camUi', 140, 40, FlxG.width, FlxG.height, 0.97);
+        FlxG.cameras.add(camUi, false);
+        
+        map = new FunkinSprite(0, 0).loadSparrow('states/map/map');
+        map.animation.addByPrefix('idle', 'map', 24, true);
+        map.animation.play('idle');
+        add(map);
+
+        residentsButton = createButton(0);
+        forestButton = createButton(1);
+        desertButton = createButton(2);
+        lakeButton = createButton(3);
+        plazaButton = createButton(4);
+        yorkButton = createButton(5);
+        exButton = createButton(6);
+
+        buttons = [residentsButton, forestButton, desertButton, lakeButton, plazaButton, yorkButton, exButton];
+
+        map.cameras = [camUi];
+        for (i in 0...buttons.length) {
+            var btn = buttons[i];
+            btn.cameras = [camUi];
+            add(btn);
+        }
+
+        #if mobile
+        backButton = new FunkinBackButton(20, 20, 0xFFFFFFFF, goBack);
+        backButton.cameras = [camUi];
+        add(backButton);
+        #end
+    }
+
+    function goBack() {
+        FlxG.sound.play(Paths.sound('yeahBack'));
+        FlxG.switchState(new MainMenuState());
+    }
+
+    function isUnlocked(id:Int):Bool {
+        if (id < 0 || id >= unlockedStates.length) return false;
+        return unlockedStates[id];
+    }
+
+    function playScroll() {
+        FlxG.sound.play(Paths.sound('mainHover'));
+    }
+
+    function changeSelection(change:Int = 0) {
+        if (lastHovered != null) {
+            setItemState(lastHovered, 'onExitProcess');
+        }
+
+        var maxIdx:Int = buttons.length > 0 ? buttons.length - 1 : 0;
+        curSelected = FlxMath.wrap(curSelected + change, 0, maxIdx);
+        lastHovered = buttons[curSelected];
+        setItemState(lastHovered, 'onProcess');
+    }
+
+    function createButton(id:Int):FunkinSprite {
+        var pos = ButtonProperties.getPos(id);
+        var path = ButtonProperties.getPath(id);
+        var btn = new FunkinSprite(pos[0], pos[1]);
+
+        var unlocked = isUnlocked(id);
+        btn.color = unlocked ? 0xFFFFFFFF : 0xFF808080;
+
+        trace('MapState: createButton ID ${id} - Position: (${pos[0]}, ${pos[1]}), Path: ${path}');
+        if (path != "") {
+            btn.loadTexture(path);
+            btn.updateHitbox();
+        }
+
+        if (!unlocked) {
+            var lockIcon = new FunkinSprite(0, 0).loadSparrow('states/map/locked');
+            lockIcon.animation.addByPrefix('idle', 'Symbol 9', 24, true);
+            lockIcon.animation.play('idle');
+            lockIcon.zIndex = btn.zIndex + 1000000000000000000000000000000000000000000000000000000000;
+            lockIcon.antialiasing = true;
+
+            lockIcon.scale.set(0.6, 0.6);
+            lockIcon.updateHitbox();
+            
+            lockIcon.x = btn.x + (btn.width - lockIcon.width) / 2;
+            lockIcon.y = btn.y + (btn.height - lockIcon.height) / 2;
+
+            lockIcon.cameras = [camUi];
+            add(lockIcon);
+            lockIcons.push(lockIcon);
+        }
+
+        btn.antialiasing = true;
+        return btn;
+    }
+
+    override function update(elapsed:Float) {
+        super.update(elapsed);
+
+        var gamepad = FlxG.gamepads.lastActive;
+
+        var navLeft = FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A || (gamepad != null && gamepad.justPressed.DPAD_LEFT);
+        var navRight = FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.D || (gamepad != null && gamepad.justPressed.DPAD_RIGHT);
+        var navUp = FlxG.keys.justPressed.UP || FlxG.keys.justPressed.W || (gamepad != null && gamepad.justPressed.DPAD_UP);
+        var navDown = FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.S || (gamepad != null && gamepad.justPressed.DPAD_DOWN);
+
+        if (navLeft || navUp) changeSelection(-1);
+        else if (navRight || navDown) changeSelection(1);
+
+        if (FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.BACKSPACE) {
+            goBack();
+        }
+
+        if (gamepad != null && (gamepad.justPressed.B || gamepad.justPressed.BACK)) {
+            goBack();
+        }
+
+        var isMobile:Bool = #if mobile true #else false #end;
+        var confirmed:Bool = FlxG.keys.justPressed.ENTER || (gamepad != null && gamepad.justPressed.A);
+
+        if (isMobile) {
+            for (i in 0...buttons.length) {
+                if (TouchUtil.overlaps(buttons[i], camUi)) {
+                    if (curSelected != i) changeSelection(i - curSelected);
+                    if (TouchUtil.justPressed) confirmed = true;
+                    break;
+                }
+            }
+        } else {
+            if (FlxG.mouse.justMoved) { 
+                for (i in 0...buttons.length) {
+                    if (buttons[i].overlapsPoint(FlxG.mouse.getWorldPosition(camUi))) {
+                        if (curSelected != i) changeSelection(i - curSelected);
+                        break;
+                    }
+                }
+            }
+            if (FlxG.mouse.justPressed) confirmed = true;
+        }
+
+        if (confirmed) {
+            if (isUnlocked(curSelected)) {
+                setItemState(buttons[curSelected], 'entry');
+            } else {
+                FlxG.sound.play(Paths.sound('yeahBack'));
+                camUi.shake(0.01, 0.1); 
+            }
+        }
+    }
+
+    override function create() {
+        super.create();
+        boringStuff();
+        changeSelection(0); 
+        FlxG.sound.playMusic(Paths.music('YeahMenu/1'), 1, true);
+    }
+
+    function getIdByItem(item:FunkinSprite):Int {
+        if (item == residentsButton) return 0;
+        if (item == forestButton) return 1;
+        if (item == desertButton) return 2;
+        if (item == lakeButton) return 3;
+        if (item == plazaButton) return 4;
+        if (item == yorkButton) return 5;
+        if (item == exButton) return 6;
+        
+        return -1;
+    }
+
+    function setItemState(item:FunkinSprite, state1:String) {
+        if (item == null) return;
+        var id:Int = getIdByItem(item);
+        var unlocked = isUnlocked(id);
+
+        FlxTween.cancelTweensOf(item.scale);
+        FlxTween.cancelTweensOf(item);
+
+        switch (state1) {
+            case 'onProcess':
+                if (unlocked) playScroll();
+                FlxTween.tween(item.scale, {x: 1.2, y: 1.2}, 0.2, {ease: FlxEase.sineOut});
+                HapticUtil.vibrate(0, 0.05, 0.3, 0.3);
+            case 'onExitProcess':
+                FlxTween.tween(item.scale, {x: 1.0, y: 1.0}, 0.2, {ease: FlxEase.sineOut});
+            case 'entry':
+                HapticUtil.vibrate(0, 0.1, 0.6, 0.6); 
+                
+                var stateName:String = "";
+                var stickerPackName:String = "";
+
+                switch (id) {
+                    case 0:
+                        stateName = "ResidentState"; stickerPackName = "yr";
+                    case 1:
+                        stateName = "ForestState"; stickerPackName = "yf";
+                    case 2:
+                        stateName = "DesertState"; stickerPackName = "yd";
+                    case 3:
+                        stateName = "LakeState"; stickerPackName = "yl";
+                    case 4:
+                        stateName = "PlazaState"; stickerPackName = "yp";
+                    case 5:
+                        stateName = "YorkState"; stickerPackName = "yy";
+                    case 6:
+                        stateName = "ExecutionState"; stickerPackName = "yex";
+                }
+
+                if (stateName != "") {
+                    openSubState(new StickerSubState({
+                        targetState: function(stickers) return ScriptedMusicBeatState.init(stateName),
+                        
+                            stickerPack: stickerPackName
+                    }));
+                } else {
+                    FlxG.switchState(new MainMenuState());
+                }
+        }
+    }
+}

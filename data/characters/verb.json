@@ -1,0 +1,104 @@
+{
+    "version": "1.0.0",
+    "name": "Verb",
+    "assetPath": "characters/verbleryeahman",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "cryp",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                220,
+                429
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                161,
+                447
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                264,
+                472
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                207,
+                392
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN-alt",
+            "prefix": "man",
+            "offsets": [
+                331,
+                331
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP-alt",
+            "prefix": "yeah",
+            "offsets": [
+                250,
+                482
+            ],
+            "frameRate": 22,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                282,
+                455
+            ],
+            "frameRate": 22,
+            "frameIndices": [
+                0,
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+            ]
+        }
+    ],
+    "flipX": false
+}

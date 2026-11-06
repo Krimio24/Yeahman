@@ -1,0 +1,107 @@
+{
+    "version": "1.0.0",
+    "name": "Josh",
+    "assetPath": "characters/pluto v2",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "pluto",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                -126,
+                20
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                -257,
+                -60
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                -73,
+                351
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                -278,
+                -67
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFTmiss",
+            "prefix": "MISSleft",
+            "offsets": [
+                -150,
+                -220
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHTmiss",
+            "prefix": "MISSright",
+            "offsets": [
+                90,
+                -10
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWNmiss",
+            "prefix": "MISSdown",
+            "offsets": [
+                570,
+                -100
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                -231,
+                20
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUPmiss",
+            "prefix": "MISSdown",
+            "offsets": [
+                570,
+                -100
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

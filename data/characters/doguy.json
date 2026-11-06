@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Doguy",
+    "assetPath": "characters/Doguy",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "bf",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "LEFT",
+            "offsets": [
+                75,
+                -57
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "DOWN",
+            "offsets": [
+                44,
+                -104
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "UP",
+            "offsets": [
+                -23,
+                2
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "RIGHT",
+            "offsets": [
+                -1,
+                -70
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "IDLE",
+            "offsets": [
+                21,
+                -27
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

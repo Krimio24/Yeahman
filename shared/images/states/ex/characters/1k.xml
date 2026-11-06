@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="EZ-JCE.png">
+<SubTexture name="theanim0000" x="632" y="0" width="612" height="588" frameX="-12" frameY="-52" frameWidth="640" frameHeight="640" />
+<SubTexture name="theanim0001" x="0" y="0" width="632" height="599" frameX="-2" frameY="-41" frameWidth="640" frameHeight="640" />
+</TextureAtlas>

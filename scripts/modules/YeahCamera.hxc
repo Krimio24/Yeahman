@@ -1,0 +1,101 @@
+import funkin.play.PlayState;
+import funkin.modding.module.Module;
+
+import flixel.FlxG;
+import flixel.math.FlxMath;
+
+class YeahCamera extends Module {
+
+	public var intensity:Float = 15; 
+	public var rotIntensity:Float = 0.5;
+
+	var offsetX:Float = 0;
+	var offsetY:Float = 0;
+	var offsetAngle:Float = 0;
+
+	var targetX:Float = 0;
+	var targetY:Float = 0;
+	var targetAngle:Float = 0;
+
+	var timeSinceLastHit:Float = 0;
+
+	public function new() {
+		super("YeahCam");
+	}
+
+	override function onNoteHit(event) {
+		super.onNoteHit(event);
+		if (PlayState.instance == null) return;
+		applyDirection(event.note.direction);
+	}
+
+	override function onOpponentNoteHit(event) {
+		super.onOpponentNoteHit(event);
+		if (PlayState.instance == null) return;
+		applyDirection(event.note.direction);
+	}
+
+	function applyDirection(dir:Int) {
+		targetX = 0;
+		targetY = 0;
+		targetAngle = 0;
+
+		timeSinceLastHit = 0;
+
+		if (dir == 0) {
+			targetX = -intensity;
+			targetAngle = -rotIntensity;
+		} else if (dir == 1) {
+			targetY = intensity;
+			targetAngle = rotIntensity;
+		} else if (dir == 2) {
+			targetY = -intensity;
+			targetAngle = -rotIntensity;
+		} else if (dir == 3) {
+			targetX = intensity;
+			targetAngle = rotIntensity;
+		}
+	}
+
+	override function onPause(event) {
+		super.onPause(event);
+
+		targetX = 0;
+		targetY = 0;
+		targetAngle = 0;
+		offsetX = 0;
+		offsetY = 0;
+		offsetAngle = 0;
+
+		
+		if (PlayState.instance != null && PlayState.instance.camGame != null) {
+			PlayState.instance.camGame.angle = 0;
+			PlayState.instance.camGame.targetOffset.set(0, 0);
+		}
+	}
+
+	override function onUpdate(elapsed:Float) {
+		super.onUpdate(elapsed);
+		if (PlayState.instance == null) return;
+
+		var cam = PlayState.instance.camGame;
+		if (cam == null) return;
+
+		timeSinceLastHit += elapsed;
+
+		if (timeSinceLastHit > 0.5)
+		{
+			targetX = 0;
+			targetY = 0;
+			targetAngle = 0;
+		}
+
+		offsetX = FlxMath.lerp(offsetX, targetX, 0.20);
+		offsetY = FlxMath.lerp(offsetY, targetY, 0.20);
+
+		offsetAngle = FlxMath.lerp(offsetAngle, targetAngle, 0.04);
+
+		cam.targetOffset.set(offsetX, offsetY);
+		cam.angle = offsetAngle;
+	}
+}

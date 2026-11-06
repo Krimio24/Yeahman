@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Mello Yeahman",
+    "assetPath": "characters/kidnplay/mello-yeahman",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "mello",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "mello idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "mello left",
+            "offsets": [
+                34,
+                37
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "mello right",
+            "offsets": [
+                33,
+                23
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "mello up",
+            "offsets": [
+                -5,
+                81
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "mello down",
+            "offsets": [
+                49,
+                -51
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

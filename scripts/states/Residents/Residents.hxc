@@ -1,0 +1,72 @@
+import funkin.ui.MusicBeatState;
+import funkin.graphics.FunkinSprite;
+import funkin.Paths;
+import flixel.group.FlxSpriteGroup;
+import funkin.graphics.FunkinCamera;
+import flixel.FlxObject;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxG;
+import flixel.math.FlxMath;
+import funkin.util.TouchUtil;
+import funkin.util.ReflectUtil;
+import funkin.modding.base.ScriptedMusicBeatState;
+import funkin.ui.transition.stickers.StickerSubState;
+import funkin.ui.mainmenu.MainMenuState; // Ejemplo para fallback
+import funkin.save.Save;
+import funkin.mobile.ui.FunkinBackButton;
+import funkin.util.HapticUtil;
+
+class ResidentState extends MusicBeatState {
+
+
+    var camState:FunkinCamera;
+    var camHUD:FunkinCamera;
+    var bf:FunkinSprite;
+    var fuego:FlxSpriteGroup;
+    var choroma:FlxSpriteGroup;
+    var jay:FlxSpriteGroup;
+
+    override function create() {
+        super.create();
+
+    camState = new FunkinCamera('camState', 0, 0, FlxG.width, FlxG.height, 1);
+    camHUD = new FunkinCamera('camHUD', 0, 0, FlxG.width, FlxG.height, 1);
+    FlxG.cameras.add(camState, false);
+    FlxG.cameras.add(camHUD, false);
+    
+    fuego = new FlxSpriteGroup();
+    choroma = new FlxSpriteGroup();
+    jay = new FlxSpriteGroup();
+
+    add(fuego);
+    add(choroma);
+    add(jay);
+    
+    bf = new FunkinSprite(150, 150);
+    bf.loadSparrow(Paths.image('states/residents/bf'));
+    bf.animation.addByPrefix('walk', 'walk', 24, true);
+    bf.animation.addByPrefix('idle', 'idle', 24, true);
+    bf.animation.addByPrefix('door', 'knock knock im sorry im white i had to change the name', 24, true);
+    bf.animation.play('idle');
+    add(bf);
+
+    bf.cameras = [camState];
+    fuego.cameras = [camState];
+    choroma.cameras = [camState];
+    jay.cameras = [camState];
+
+    createDoor(fuego, 200, 200, 1);
+    createDoor(choroma, 500, 200, 2);
+    createDoor(jay, 800, 200, 3);
+    }
+
+    public function createDoor(groupTarget:FlxSpriteGroup, x:Int, y:Int, id:Int) {
+    // Al ser una clase scriptada en la misma carpeta, 
+    // simplemente la instanciamos por su nombre de clase.
+    var door = new Door(id, x, y);
+    groupTarget.add(door);
+    }
+
+
+}

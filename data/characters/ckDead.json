@@ -1,0 +1,54 @@
+{
+    "version": "1.0.0",
+    "name": "Ckdead",
+    "assetPath": "characters/CkDeathanim",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "ck",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "death",
+            "offsets": [
+                120,
+                326
+            ],
+            "frameRate": 24,
+            "frameIndices": [
+                1
+            ]
+        },
+        {
+            "name": "rip",
+            "prefix": "death",
+            "offsets": [
+                229,
+                326
+            ],
+            "frameRate": 24,
+            "frameIndices": [
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59
+            ]
+        }
+    ],
+    "flipX": true
+}

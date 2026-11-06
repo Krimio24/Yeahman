@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "64grave",
+    "assetPath": "characters/64/croc64",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 3,
+    "healthIcon": {
+        "id": "fuego",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "i",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "l",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "d",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "u",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "r",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

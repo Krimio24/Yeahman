@@ -1,0 +1,92 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import yeah.YeahUi;
+import funkin.modding.events.ScriptEvent;
+import funkin.play.PlayState;
+import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import funkin.Preferences;
+import funkin.Paths;
+
+
+
+class SlithermanSong extends Song {
+
+  public function new()
+  {
+    super('slitherman');
+    this.hasMoved = false;
+  }
+
+  var hasMoved:Bool = false;
+
+  override function onCreate() {
+    super.onCreate();
+
+            if (PlayState.instance.opponentStrumline != null) PlayState.instance.opponentStrumline.visible = false;
+
+        		if (!FlxG.onMobile) {
+    var opp = PlayState.instance.currentChart.characters.opponent;
+    var iconName:String;
+    var urlBase:String = "https://raw.githubusercontent.com/Krimio24/YeahManRPC/assets/";
+    var cacheShield:String = "?v=" + Std.string(FlxG.random.int(0, 9999));
+
+    PlayState.instance.discordRPCAlbum = urlBase 
+        + PlayState.instance.currentSong.id.toLowerCase()
+        + ".png" + cacheShield;
+
+    PlayState.instance.discordRPCIcon = urlBase 
+        + "icon-"
+        + PlayState.instance.currentChart.characters.opponent
+        + ".png" + cacheShield;
+}
+
+    ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+
+    PlayState.instance.comboPopUps.cameras = [PlayState.instance.camGame];
+
+    if (PlayState.instance != null && PlayState.instance.healthBar != null) PlayState.instance.healthBar.visible = false;
+    if (PlayState.instance.healthBarBG != null) PlayState.instance.healthBarBG.visible = false;
+    if (PlayState.instance.iconP1 != null) PlayState.instance.iconP1.visible = false;
+    if (PlayState.instance.iconP2 != null) PlayState.instance.iconP2.visible = false;
+    if (PlayState.instance.scoreText != null) PlayState.instance.scoreText.visible = false;
+    
+    this.hasMoved = false;
+    }
+
+      override function onSongEnd(event:ScriptEvent) {
+              PlayState.instance.comboPopUps.cameras = [PlayState.instance.camGame];
+
+    if (PlayState.instance != null && PlayState.instance.healthBar != null) PlayState.instance.healthBar.visible = true;
+    if (PlayState.instance.healthBarBG != null) PlayState.instance.healthBarBG.visible = true;
+    if (PlayState.instance.iconP1 != null) PlayState.instance.iconP1.visible = true;
+    if (PlayState.instance.iconP2 != null) PlayState.instance.iconP2.visible = true;
+    if (PlayState.instance.scoreText != null) PlayState.instance.scoreText.visible = true;
+    
+    }
+
+    override function onDestroy(event:ScriptEvent) {
+              PlayState.instance.comboPopUps.cameras = [PlayState.instance.camGame];
+
+    if (PlayState.instance != null && PlayState.instance.healthBar != null) PlayState.instance.healthBar.visible = true;
+    if (PlayState.instance.healthBarBG != null) PlayState.instance.healthBarBG.visible = true;
+    if (PlayState.instance.iconP1 != null) PlayState.instance.iconP1.visible = true;
+    if (PlayState.instance.iconP2 != null) PlayState.instance.iconP2.visible = true;
+    if (PlayState.instance.scoreText != null) PlayState.instance.scoreText.visible = true;
+    
+    }
+
+  override function onUpdate(event:ScriptEvent):Void
+  {
+    super.onUpdate(event);
+
+    if (!this.hasMoved && !FlxG.onMobile)
+    {
+      this.hasMoved = true;
+      if (PlayState.instance.opponentStrumline != null) PlayState.instance.opponentStrumline.visible = false;
+      if (PlayState.instance.playerStrumline != null) PlayState.instance.playerStrumline.x = 100;
+    }
+  }
+}

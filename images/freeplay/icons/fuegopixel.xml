@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="fuegopixel.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="confirm0000" x="3" y="3" width="55" height="55"/>
+	<SubTexture name="confirm0001" x="3" y="63" width="55" height="55"/>
+	<SubTexture name="confirm0002" x="63" y="3" width="55" height="55"/>
+	<SubTexture name="confirm0003" x="63" y="63" width="55" height="55"/>
+	<SubTexture name="confirm-hold0000" x="63" y="63" width="55" height="55"/>
+	<SubTexture name="idle0000" x="3" y="3" width="55" height="55"/>
+</TextureAtlas>

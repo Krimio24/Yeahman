@@ -1,0 +1,199 @@
+{
+  "version": "1.1.0",
+  "name": "YeahMan'",
+  "author": "Fueg0",
+  "fallback": null,
+  "assets": {
+    "note": {
+      "assetPath": "shared:notes/NOTE_assets-yeaharrows",
+      "scale": 0.64,
+      "data": {
+        "left": { "prefix": "purple0" },
+        "down": { "prefix": "blue0" },
+        "up": { "prefix": "green0" },
+        "right": { "prefix": "red0" }
+      }
+    },
+    "noteStrumline": {
+      "assetPath": "shared:notes/NOTE_assets-yeaharrows",
+      "scale": 0.64,
+      "offsets": [20, 25],
+      "data": {
+        "leftStatic": { "prefix": "arrowLEFT" },
+        "leftPress": { "prefix": "left press" },
+        "leftConfirm": { "prefix": "left confirm" },
+        "leftConfirmHold": { "prefix": "left confirm" },
+        "downStatic": { "prefix": "arrowDOWN" },
+        "downPress": { "prefix": "down press" },
+        "downConfirm": { "prefix": "down confirm" },
+        "downConfirmHold": { "prefix": "down confirm" },
+        "upStatic": { "prefix": "arrowUP" },
+        "upPress": { "prefix": "up press" },
+        "upConfirm": { "prefix": "up confirm" },
+        "upConfirmHold": { "prefix": "up confirm" },
+        "rightStatic": { "prefix": "arrowRIGHT" },
+        "rightPress": { "prefix": "right press" },
+        "rightConfirm": { "prefix": "right confirm" },
+        "rightConfirmHold": { "prefix": "right confirm" }
+      }
+    },
+    "holdNote": {
+      "assetPath": "shared:notes/NOTE_hold_assetsyeah",
+      "scale": 0.7,
+      "alpha": 0.4,
+      "data": {}
+    },
+    "noteSplash": {
+      "assetPath": "shared:notes/noteSplashes-yeahsplashes",
+      "alpha": 0.6,
+      "scale": 0.7,
+      "data": {
+        "enabled": true,
+        "leftSplashes": [
+          { "prefix": "yeah blue" }
+        ],
+        "rightSplashes": [
+          { "prefix": "yeah blue" }
+        ],
+        "upSplashes": [
+          { "prefix": "yeah blue" }
+        ],
+        "downSplashes": [
+          { "prefix": "yeah blue" }
+        ]
+      }
+    },
+    "holdNoteCover": {
+      "assetPath": "",
+      "offsets": [0, 0],
+      "alpha" : 0,
+      "data": {
+        "enabled": true,
+        "left": {
+          "assetPath": "shared:notes/holdCoverTrasparent",
+          "start": { "prefix": "holdCoverStartBlue" },
+          "hold": { "prefix": "holdCoverBlue" },
+          "end": { "prefix": "holdCoverEndBlue" }
+        },
+        "right": {
+          "assetPath": "shared:notes/holdCoverTrasparent",
+          "start": { "prefix": "holdCoverStartBlue" },
+          "hold": { "prefix": "holdCoverBlue" },
+          "end": { "prefix": "holdCoverEndBlue" }
+        },
+        "up": {
+          "assetPath": "shared:notes/holdCoverTrasparent",
+          "start": { "prefix": "holdCoverStartBlue" },
+          "hold": { "prefix": "holdCoverBlue" },
+          "end": { "prefix": "holdCoverEndBlue" }
+        },
+        "down": {
+          "assetPath": "shared:notes/holdCoverTrasparent",
+          "start": { "prefix": "holdCoverStartBlue" },
+          "hold": { "prefix": "holdCoverBlue" },
+          "end": { "prefix": "holdCoverEndBlue" }
+        }
+      }
+    },
+    "countdownThree": {
+      "data": {
+        "audioPath": "shared:gameplay/countdown/yeah/intro3"
+      },
+      "assetPath": null
+    },
+    "countdownTwo": {
+      "data": {
+        "audioPath": "shared:gameplay/countdown/yeah/intro2"
+      },
+      "assetPath": "shared:ui/countdown/yeah/ready",
+      "scale": 1.0,
+      "isPixel": false
+    },
+    "countdownOne": {
+      "data": {
+        "audioPath": "shared:gameplay/countdown/yeah/intro1"
+      },
+      "assetPath": "shared:ui/countdown/yeah/set",
+      "scale": 1.0,
+      "isPixel": false
+    },
+    "countdownGo": {
+      "data": {
+        "audioPath": "shared:gameplay/countdown/yeah/introGO"
+      },
+      "assetPath": "shared:ui/countdown/yeah/go",
+      "scale": 1.0,
+      "isPixel": false
+    },
+    "judgementSick": {
+      "assetPath": "shared:notes/sick",
+      "scale": 0.65,
+      "isPixel": false
+    },
+    "judgementGood": {
+      "assetPath": "shared:notes/good",
+      "scale": 0.65,
+      "isPixel": false
+    },
+    "judgementBad": {
+      "assetPath": "shared:notes/bad",
+      "scale": 0.65,
+      "isPixel": false
+    },
+    "judgementShit": {
+      "assetPath": "shared:notes/shit",
+      "scale": 0.65,
+      "isPixel": false
+    },
+    "comboNumber0": {
+      "assetPath": "shared:notes/num0",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber1": {
+      "assetPath": "shared:notes/num1",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber2": {
+      "assetPath": "shared:notes/num2",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber3": {
+      "assetPath": "shared:notes/num3",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber4": {
+      "assetPath": "shared:notes/num4",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber5": {
+      "assetPath": "shared:notes/num5",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber6": {
+      "assetPath": "shared:notes/num6",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber7": {
+      "assetPath": "shared:notes/num7",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber8": {
+      "assetPath": "shared:notes/num8",
+      "isPixel": false,
+      "scale": 0.45
+    },
+    "comboNumber9": {
+      "assetPath": "shared:notes/num9",
+      "isPixel": false,
+      "scale": 0.45
+    }
+  }
+}

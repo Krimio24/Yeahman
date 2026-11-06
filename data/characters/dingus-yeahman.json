@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Dingus Yeahman",
+    "assetPath": "characters/kidnplay/dingus-yeahman",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "dingus",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "dingus idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "dingus left",
+            "offsets": [
+                60,
+                3
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "dingus down",
+            "offsets": [
+                -8,
+                10
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "dingis right",
+            "offsets": [
+                -7,
+                -9
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "dingus up",
+            "offsets": [
+                5,
+                34
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

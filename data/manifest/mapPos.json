@@ -1,0 +1,9 @@
+[
+    {"id": 0, "sprite": ["states/map/resident", 230, 516]},
+    {"id": 1, "sprite": ["states/map/forest", 87, 290]},
+    {"id": 2, "sprite": ["states/map/desert", 204, 101]},
+    {"id": 3, "sprite": ["states/map/lake", 845, 311]},
+    {"id": 4, "sprite": ["states/map/plaza", 481, 166]},
+    {"id": 5, "sprite": ["states/map/york", 761, 186]},
+    {"id": 6, "sprite": ["states/map/execution", 866, 96]}
+]

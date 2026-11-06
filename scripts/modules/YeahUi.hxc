@@ -1,0 +1,85 @@
+package yeah;
+
+import funkin.play.PlayState;
+import YeahManNoteStyle;
+import funkin.Conductor;
+import funkin.play.song.Song;
+import funkin.modding.events.ScriptEvent;
+import funkin.modding.module.Module;
+import funkin.util.tools.StringTools;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+import flixel.ui.FlxBar;
+import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import Math;
+import Std;
+import funkin.Preferences;
+import flixel.util.FlxTimer;
+import haxe.ds.StringMap;
+import haxe.ds.IntMap;
+import funkin.util.Constants;
+import Reflect;
+import Date;
+import haxe.io.Bytes;
+
+class YeahUi extends Module {
+	public function new() {
+		super("YeahUi", 0);
+		iconColorCache = new StringMap();
+	}
+
+	var healthbarFG:FlxSprite;
+	var iconRes = 150;
+
+	static var defaultHBGreen = Constants.COLOR_HEALTH_BAR_GREEN;
+	static var defaultHBRed = Constants.COLOR_HEALTH_BAR_RED;
+	static var bfColor;
+	static var dadColor;
+	static var bfLastChar:String = '';
+	static var dadLastChar:String = '';
+	static var iconColorCache:StringMap;
+
+	var customUiActive:Bool = false;
+	var inPlay = false;
+	var squishTimer:Float = 0;
+	var fgSquishTimer:FlxTimer;
+
+	public function hideHud() {
+		if (PlayState.instance != null && PlayState.instance.healthBar != null)
+			PlayState.instance.healthBar.visible = false;
+		if (PlayState.instance.healthBarBG != null)
+			PlayState.instance.healthBarBG.visible = false;
+		if (PlayState.instance.iconP1 != null)
+			PlayState.instance.iconP1.visible = false;
+		if (PlayState.instance.iconP2 != null)
+			PlayState.instance.iconP2.visible = false;
+	}
+
+	public function hideHudRestart() {
+		if (PlayState.instance.healthBar != null)
+			PlayState.instance.healthBar.visible = true;
+		if (PlayState.instance.healthBarBG != null)
+			PlayState.instance.healthBarBG.visible = true;
+		if (PlayState.instance.iconP1 != null)
+			PlayState.instance.iconP1.visible = true;
+		if (PlayState.instance.iconP2 != null)
+			PlayState.instance.iconP2.visible = true;
+	}
+
+	public function setValueTo(variable:String, value:Any) {
+		Reflect.setProperty(this, variable, value);
+	}
+
+	public function spawnHealthBar() {
+		var bf = PlayState.instance.currentStage.getBoyfriend();
+		PlayState.instance.comboPopUps.offsets = [bf.x - 720, bf.y - 435];
+		PlayState.instance.comboPopUps.cameras = [PlayState.instance.camGame];
+		PlayState.instance.opponentStrumline.visible = false;
+	}
+
+	public function moveBar(type:Int, seconds:Float, anim:String) {}
+}

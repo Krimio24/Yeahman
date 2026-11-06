@@ -1,0 +1,68 @@
+{
+    "version": "1.0.0",
+    "name": "AAAJcyyeah",
+    "assetPath": "characters/jcy",
+    "startingAnimation": "idle",
+    "singTime": 6.5,
+    "isPixel": false,
+    "scale": 1.2,
+    "healthIcon": {
+        "id": "jcyym",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "jcy left",
+            "offsets": [
+                -119,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "jcy right",
+            "offsets": [
+                -199,
+                -16
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "jcy up",
+            "offsets": [
+                -99,
+                32
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "jcy down",
+            "offsets": [
+                -161,
+                -8
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "jcy idle",
+            "offsets": [
+                -92,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

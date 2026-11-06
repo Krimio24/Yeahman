@@ -1,0 +1,220 @@
+import funkin.util.HapticUtil;
+import funkin.modding.module.ModuleHandler;
+import flixel.FlxG;
+import funkin.play.components.HealthIcon;
+import funkin.play.character.CharacterType;
+import funkin.modding.events.SongTimeScriptEvent;
+import funkin.modding.events.UpdateScriptEvent;
+import funkin.modding.events.CountdownScriptEvent;
+import funkin.modding.events.HitNoteScriptEvent;
+import funkin.play.notes.Strumline;
+import funkin.play.PlayState;
+import funkin.data.notestyle.NoteStyleRegistry;
+import funkin.data.song.SongNoteDataRaw;
+import funkin.util.GRhythmUtil;
+import funkin.data.song.SongDataUtils;
+import funkin.Assets;
+import funkin.play.stage.Stage;
+import funkin.play.character.BaseCharacter;
+import funkin.Paths;
+import funkin.modding.module.ModuleHandler;
+import funkin.data.character.CharacterDataParser;
+import haxe.Json;
+import funkin.graphics.shaders.AdjustColorShader;
+import Reflect;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+import flixel.input.gamepad.FlxGamepad;
+import funkin.util.HapticUtil;
+import flixel.addons.display.FlxBackdrop;
+import funkin.graphics.shaders.RuntimeRainShader;
+import openfl.filters.ShaderFilter;
+
+
+class DareiBG extends Stage {
+
+
+  var blackSprite:FlxSprite;
+  var kuraiStrumline:Strumline;
+  var kuraiNoteData:Array<SongNoteDataRaw> = [];
+  var mist1:FlxBackdrop;
+  var mist2:FlxBackdrop;
+  var colorShader:AdjustColorShader;
+  var cFilter:ShaderFilter;
+
+  public function new() {
+    super('dareibg');
+  }
+
+     override function addCharacter(character:BaseCharacter, charType:CharacterType):Void
+  {
+    // Apply the shader automatically to each character as it gets added.
+    super.addCharacter(character, charType);
+    trace('Applied stage shader to ' + character.characterName);
+    character.shader = colorShader;
+  }
+
+   override function buildStage() {
+    super.buildStage();
+
+    colorShader = new AdjustColorShader();
+    colorShader.hue = -5;
+    colorShader.saturation = -60;
+    colorShader.contrast = -45;
+    colorShader.brightness = -20; // -70 es demasiado oscuro, prueba con -20 o -30
+
+    cFilter = new ShaderFilter(colorShader);
+
+    PlayState.instance.camHUD.filters = [cFilter];
+    FlxG.camera.filters = [cFilter];
+
+    mist1 = new FlxBackdrop(Paths.image('limo/erect/mistFront', 'week4'), 0x01);
+    mist1.setPosition(-650, -23);
+    mist1.scrollFactor.set(1.2, 1.2);
+    mist1.zIndex = 800;
+    mist1.blend = 0;
+    mist1.color = 0xFF808080;
+    mist1.alpha = 0.6;
+    mist1.velocity.x = 450;
+
+    mist2 = new FlxBackdrop(Paths.image('limo/erect/mistMid', 'week4'), 0x01);
+    mist2.setPosition(-248, -230);
+    mist2.scrollFactor.set(1.1, 1.1);
+    mist2.zIndex = 2;
+    mist2.blend = 0;
+    mist2.color = 0xFF808080;
+    mist2.alpha = 0.4;
+    mist2.velocity.x = 240;
+
+    add(mist1);
+    add(mist2);
+
+    var kurai = getGirlfriend();
+        
+    var noteStyle = NoteStyleRegistry.instance.fetchEntry('yerman');
+
+    kuraiStrumline = new Strumline(noteStyle, false, 2.8);
+
+    var json = Json.parse(Assets.getText(Paths.json('songs/devilkid/kuraiChart')));
+    var noteArray = Reflect.field(json, "notes");
+    if (!Std.isOfType(noteArray, Array)) noteArray = Reflect.field(noteArray, Reflect.fields(noteArray)[0]);
+
+    for (n in noteArray) kuraiNoteData.push(new SongNoteDataRaw(n.t, n.d, n.l, n.k));
+
+    kuraiStrumline.applyNoteData(kuraiNoteData);
+    
+    // Forzamos Upscroll
+    kuraiStrumline.isDownscroll = true;
+
+    kuraiStrumline.zIndex = 450;
+    kuraiStrumline.cameras = [PlayState.instance.camGame];
+    kuraiStrumline.setPosition(	782.55, 261.7 + 360);
+    kuraiStrumline.alpha = 0; // Inicia invisible para el evento del Step 865
+    add(kuraiStrumline);
+
+    // Refrescamos los receptores para aplicar las texturas del NoteStyle ahora que quitamos el 'return'
+    for (strum in kuraiStrumline.strumlineNotes.members) {
+      strum.playStatic();
+    }
+
+    blackSprite = new FlxSprite();
+    blackSprite.makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000000);
+    blackSprite.screenCenter();
+    blackSprite.scrollFactor.set();
+    blackSprite.alpha = 0.3;
+    blackSprite.zIndex = 1;
+    add(blackSprite);
+  }  
+
+  	override function onSongEvent(event) {
+		super.onSongEvent(event);
+		var eventParams = event.eventData;
+		if (eventParams.eventKind == "FocusCameraSongEvent") {
+      trace('FocusCameraSongEvent: FUNCTIONMMA;L HLJASDG');
+    switch (eventParams.value.char) {
+
+      case -1: 
+      trace('gluglulgu');
+      FlxTween.tween(kuraiStrumline, {alpha: 0.52}, 1.2, {ease: FlxEase.expoOut});
+      case 0:
+      FlxTween.tween(kuraiStrumline, {alpha: 0.18}, 1.2, {ease: FlxEase.expoOut});
+      trace('gluglulgu');
+      case 1:
+      FlxTween.tween(kuraiStrumline, {alpha: 0.6}, 1.2, {ease: FlxEase.expoOut});
+      trace('gluglulgu');
+      }
+		}
+	}
+
+  override function onCountdownStart(event:CountdownScriptEvent) {
+    super.onCountdownStart(event);
+    kuraiStrumline.handleSkippedNotes();
+    kuraiStrumline.vwooshInNotes();
+  }
+
+  override function onBeatHit(event:SongTimeScriptEvent) {
+    super.onBeatHit(event);
+    kuraiStrumline.onBeatHit();
+  }
+
+  override function onSongRetry(event:ScriptEvent) {
+    super.onSongRetry(event);
+    kuraiStrumline.clean();
+    FlxTween.tween(blackSprite, {alpha: 0.4}, 0.5, {ease: FlxEase.expoOut});
+  }
+
+  override function onUpdate(event:UpdateScriptEvent) {
+    super.onUpdate(event);
+    processKuraiNotes(event.elapsed);
+
+    // Forzamos la visibilidad de los receptores de la strumline de kurai en cada update
+    for (m in kuraiStrumline.strumlineNotes.members) {
+        m.visible = true;
+    }
+  }
+
+  function processKuraiNotes(elapsed:Float) {
+    var kurai = getGirlfriend();
+
+    for (note in kuraiStrumline.notes.members) {
+      if (note == null || !note.alive) continue;
+
+      var r = GRhythmUtil.processWindow(note, false);
+      if (r.botplayHit) {
+        kuraiStrumline.hitNote(note);
+        kurai.playSingAnimation(note.noteData.getDirection());
+        kurai.holdTimer = 0;
+      }
+    }
+
+    for (holdNote in kuraiStrumline.holdNotes.members) {
+      if (holdNote == null || !holdNote.alive) continue;
+      if (holdNote.hitNote && !holdNote.missedNote && holdNote.sustainLength > 0) {
+        if (kurai.isSinging()) kurai.holdTimer = 0;
+      }
+    }
+  }
+
+  override function onStepHit(event:SongTimeScriptEvent) {
+    super.onStepHit(event);
+    var aStep = event.step;
+    switch (event.step) {
+        case 688:
+        FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, 0.3, {ease: FlxEase.sineOut});
+        case 700:
+        ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 1, "linear"]);
+        case 816:
+        FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, 0.5, {ease: FlxEase.expoOut});
+        FlxTween.tween(kuraiStrumline, {alpha: 0.7}, 0.3, {ease: FlxEase.sineOut});
+        case 943:
+        ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 0.8, "expoOut"]);
+        FlxTween.tween(kuraiStrumline, {alpha: 0}, 0.3, {ease: FlxEase.sineOut});
+        case 950:
+        FlxTween.tween(kuraiStrumline, {alpha: 0.7}, 0.3, {ease: FlxEase.sineOut});
+        case 1077:
+        FlxTween.tween(kuraiStrumline, {alpha: 0}, 0.7, {ease: FlxEase.smotherStepOut});
+        ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 1, "linear"]);
+  }
+ }
+}

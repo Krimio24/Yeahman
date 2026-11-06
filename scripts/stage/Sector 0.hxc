@@ -1,0 +1,188 @@
+import funkin.modding.events.ScriptEvent.NoteScriptEvent;
+import funkin.util.HapticUtil;
+import funkin.modding.module.ModuleHandler;
+import flixel.FlxG;
+import funkin.play.components.HealthIcon;
+import funkin.play.character.CharacterType;
+import funkin.modding.events.SongTimeScriptEvent;
+import funkin.modding.events.UpdateScriptEvent;
+import funkin.modding.events.CountdownScriptEvent;
+import funkin.modding.events.HitNoteScriptEvent;
+import funkin.play.notes.Strumline;
+import funkin.play.PlayState;
+import funkin.data.notestyle.NoteStyleRegistry;
+import funkin.data.song.SongNoteDataRaw;
+import funkin.util.GRhythmUtil;
+import funkin.data.song.SongDataUtils;
+import funkin.Assets;
+import funkin.play.stage.Stage;
+import funkin.play.character.BaseCharacter;
+import funkin.Paths;
+import funkin.modding.module.ModuleHandler;
+import funkin.data.character.CharacterDataParser;
+import haxe.Json;
+import Reflect;
+import lime.ui.Gamepad;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.FlxSprite;
+import flixel.input.gamepad.FlxGamepad;
+import funkin.util.HapticUtil;
+
+
+class SectorCero extends Stage {
+
+
+  var kong:BaseCharacter;
+  var blackSprite:FlxSprite;
+  var kongStrumline:Strumline;
+  var kongNoteData:Array<SongNoteDataRaw> = [];
+
+  public function new() {
+    super('secter0');
+  }
+
+   override function buildStage() {
+    super.buildStage();
+
+    // Ocultamos toda la cámara del HUD al inicio
+    if (PlayState.instance.camHUD != null) {
+      FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, 0.001, {ease: FlxEase.sineOut});
+    }
+        
+    var noteStyle = NoteStyleRegistry.instance.fetchEntry('yerman');
+
+    kongStrumline = new Strumline(noteStyle, false, 2.8);
+
+    var json = Json.parse(Assets.getText(Paths.json('songs/dogshi/kongChart')));
+    var noteArray = Reflect.field(json, "notes");
+    if (!Std.isOfType(noteArray, Array)) noteArray = Reflect.field(noteArray, Reflect.fields(noteArray)[0]);
+
+    for (n in noteArray) kongNoteData.push(new SongNoteDataRaw(n.t, n.d, n.l, n.k));
+
+    kongStrumline.applyNoteData(kongNoteData);
+    
+    // Forzamos Upscroll
+    kongStrumline.isDownscroll = false;
+
+    kong = getCharacter('kongkong');
+    if (kong == null) kong = CharacterDataParser.fetchCharacter('kongkong');
+    kong.zIndex = 350;
+    kong.alpha = 0; // Inicia invisible para el evento del Step 783
+    
+    addCharacter(kong, CharacterType.OTHER);
+
+    kongStrumline.zIndex = 450;
+    kongStrumline.cameras = [PlayState.instance.camGame];
+    kongStrumline.setPosition(kong.x, kong.y - 200);
+    kongStrumline.alpha = 0; // Inicia invisible para el evento del Step 865
+    add(kongStrumline);
+
+    // Desactivamos el canto del enemigo original (Dad) para que no se mueva
+    var dad = getDad();
+    if (dad != null) dad.canSing = false;
+
+    // Refrescamos los receptores para aplicar las texturas del NoteStyle ahora que quitamos el 'return'
+    for (strum in kongStrumline.strumlineNotes.members) {
+      strum.playStatic();
+    }
+
+    blackSprite = new FlxSprite();
+    blackSprite.makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000000);
+    blackSprite.screenCenter();
+    blackSprite.scrollFactor.set();
+    blackSprite.alpha = 1;
+    blackSprite.zIndex = 2000;
+    PlayState.instance.add(blackSprite);
+    blackSprite.cameras = [PlayState.instance.camHUD, PlayState.instance.camGame];
+  }  
+  
+
+  override function onCountdownStart(event:CountdownScriptEvent) {
+    super.onCountdownStart(event);
+    kongStrumline.handleSkippedNotes();
+    kongStrumline.vwooshInNotes();
+  }
+
+  override function onBeatHit(event:SongTimeScriptEvent) {
+    super.onBeatHit(event);
+    kongStrumline.onBeatHit();
+  }
+
+  override function onSongRetry(event:ScriptEvent) {
+    super.onSongRetry(event);
+    kongStrumline.clean();
+    FlxTween.tween(blackSprite, {alpha: 1}, 0.5, {ease: FlxEase.expoOut});
+  }
+
+  override function onUpdate(event:UpdateScriptEvent) {
+    super.onUpdate(event);
+    processKongNotes(event.elapsed);
+
+    // Forzamos la visibilidad de los receptores de la strumline de Kong en cada update
+    for (m in kongStrumline.strumlineNotes.members) {
+        m.visible = true;
+    }
+  }
+
+  function processKongNotes(elapsed:Float) {
+    for (note in kongStrumline.notes.members) {
+      if (note == null || !note.alive) continue;
+
+      var r = GRhythmUtil.processWindow(note, false);
+      if (r.botplayHit) {
+        kongStrumline.hitNote(note);
+        kong.playSingAnimation(note.noteData.getDirection());
+        kong.holdTimer = 0;
+
+        var healthBefore:Float = PlayState.instance.health;
+        // Ajustamos el incremento a 0.02 (1% de la barra). 0.1 era demasiado fuerte.
+        PlayState.instance.health += 0.02;
+        if (PlayState.instance.health > 2.0) PlayState.instance.health = 2.0;
+
+        trace("Kong Heal - Salud Antes: " + healthBefore + " | Salud Ahora: " + PlayState.instance.health);
+      }
+    }
+
+    for (holdNote in kongStrumline.holdNotes.members) {
+      if (holdNote == null || !holdNote.alive) continue;
+      if (holdNote.hitNote && !holdNote.missedNote && holdNote.sustainLength > 0) {
+        if (kong.isSinging()) kong.holdTimer = 0;
+      }
+    }
+  }
+
+  override function onSongStart(event:ScriptEvent) {
+    super.onSongStart(event);
+    // Movido aquí para asegurar que el fadeout comience apenas suene la música.
+    // Esto evita que el motor lo resetee a 1 durante el inicio.
+    if (PlayState.instance.camHUD != null) {
+      PlayState.instance.camHUD.alpha = 0;
+    }
+
+    // NOTA: 12 segundos es MUCHO tiempo. Si quieres que sea más rápido, cambia el 12 por 2 o 1.2.
+    FlxTween.tween(blackSprite, {alpha: 0}, 12, {ease: FlxEase.sineInOut});
+  }
+
+  override function onStepHit(event:SongTimeScriptEvent) {
+    super.onStepHit(event);
+    switch (event.step) {
+      case 127:
+          FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, 0.3);
+      case 783:
+        kong.alpha = 1;
+        blackSprite.alpha = 1;
+        HapticUtil.vibrate(1.37, 1, 1);
+      case 800:
+        blackSprite.alpha = 0;
+      case 865:
+        FlxTween.tween(kongStrumline, {alpha: 1}, 1, {ease: FlxEase.cubeOut});
+      case 1024:
+        FlxTween.tween(blackSprite, {alpha: 1}, 0.6, {ease: FlxEase.expoOut});
+          HapticUtil.vibrate(2.45, 1, 1);
+    }
+  }
+
+
+  
+}

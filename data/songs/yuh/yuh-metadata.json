@@ -1,0 +1,38 @@
+{
+ "version": "2.2.4",
+ "songName": "Yuh",
+ "artist": "Fueg0",
+ "charter": "Fidy50, Krimio24",
+ "offsets": { },
+ "playData": {
+  "difficulties": [
+   "normal"
+  ],
+  "characters": {
+   "player": "newbf",
+   "opponent": "fuego",
+   "opponentVocals": [
+    "fuego"
+   ],
+   "playerVocals": [
+    "newbf"
+   ]
+  },
+  "stage": "fuegobg",
+  "noteStyle": "yerman",
+  "stickerPack": "yr",
+  "ratings": {
+   "normal": 2
+  },
+  "previewEnd": 0
+ },
+ "generatedBy": "Friday Night Funkin' - v0.8.4",
+ "timeChanges": [
+  {
+   "t": 0,
+   "b": 0,
+   "bpm": 135,
+   "bt": [4, 4, 4, 4]
+  }
+ ]
+}

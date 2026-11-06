@@ -1,0 +1,81 @@
+{
+	"renderType": "sparrow",
+	"version": "1.0.1",
+	"offsets": [
+		18,
+		-40
+	],
+	"danceEvery": 2,
+	"scale": 1,
+	"name": "",
+	"cameraOffsets": [
+		 360,
+        -150
+	],
+	"flipX": false,
+	"isPixel": false,
+	"singTime": 6.1,
+	"startingAnimation": "idle",
+	"healthIcon": {
+		"id": "cryp",
+		"isPixel": false
+	},
+	"assetPath": "characters/yeahcryp2",
+	"animations": [
+		{
+			"frameIndices": [],
+			"prefix": "idle",
+			"offsets": [
+				0,
+				-10
+			],
+			"frameRate": 24,
+			"name": "idle",
+			"looped": false
+		},
+		{
+			"frameIndices": [],
+			"prefix": "left",
+			"offsets": [
+				180,
+				-42
+			],
+			"frameRate": 24,
+			"name": "singLEFT",
+			"looped": false
+		},
+		{
+			"frameIndices": [],
+			"prefix": "down",
+			"offsets": [
+				92,
+				-190
+			],
+			"frameRate": 24,
+			"name": "singDOWN",
+			"looped": false
+		},
+		{
+			"frameIndices": [],
+			"prefix": "up",
+			"offsets": [
+				29,
+				39
+			],
+			"frameRate": 24,
+			"name": "singUP",
+			"looped": false
+		},
+		{
+			"frameIndices": [],
+			"prefix": "right",
+			"offsets": [
+				24,
+				-59
+			],
+			"frameRate": 24,
+			"name": "singRIGHT",
+			"looped": false
+		}
+	]
+}

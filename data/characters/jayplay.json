@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Jayplay",
+    "assetPath": "characters/jayplay",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "jayui",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

@@ -1,0 +1,1 @@
+add albums here and make them the same name as the song in lowercase and they'll load automatically, otherwise it will fall back to "default.png"

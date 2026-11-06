@@ -1,0 +1,21 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import funkin.modding.module.ModuleHandler;
+
+
+class DevilKidSong extends Song
+{
+
+
+  public function new()
+  {
+    super('devilkid');
+  }
+  
+  override function onCreate() {
+    
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+   
+  }
+ }

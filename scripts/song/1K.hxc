@@ -1,0 +1,31 @@
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+
+class OneK extends Song {
+
+    public function new() {
+        super('1k ');
+    }
+
+    override function onCreate() {
+        super.onCreate();
+
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+    }
+
+    override function onCountdownStart(event:CountdownScriptEvent):Void {
+        event.cancel();
+        super.onCountdownStart(event);
+
+        PlayState.instance.isInCountdown = true;
+        PlayState.instance.mayPauseGame = true;
+
+        PlayState.instance.startSong();
+    }
+
+}

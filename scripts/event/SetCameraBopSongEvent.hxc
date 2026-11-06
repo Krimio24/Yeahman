@@ -1,0 +1,280 @@
+package funkin.play.event;
+
+// Data from the event schema
+import funkin.data.event.SongEventSchema;
+import funkin.play.PlayState;
+import funkin.Constants;
+import flixel.tweens.FlxTween;
+import flixel.FlxG;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
+import funkin.play.event.SongEvent;
+
+/**
+ * This class handles song events which change how the camera bops to the beat of the song.
+ *
+ * Example: Bop the camera twice as hard, once per beat (rather than once every four beats).
+ * ```
+ * {
+ *   'e': 'SetCameraBop',
+ *   'v': {
+ *    'intensity': 2.0,
+ *    'rate': 1,
+ *   }
+ * }
+ * ```
+ *
+ * Example: Reset the camera bop to default values.
+ * ```
+ * {
+ *   'e': 'SetCameraBop',
+ * 	 'v': {}
+ * }
+ * ```
+ */
+class SetCameraBopSongEvent extends SongEvent
+{
+  public function new()
+  {
+    super('SetCameraBop');
+  }
+
+  public override function handleEvent(data:SongEventData):Void
+  {
+    if (PlayState.instance == null || data == null || data.value == null) return;
+
+    var state = PlayState.instance;
+    var val = data.value;
+
+    // Extract values with defaults and ensure types
+    var rate:Float = (val.rate != null) ? Std.parseFloat(val.rate) : Constants.DEFAULT_ZOOM_RATE; // Using Std.parseFloat for safety
+    var offset:Float = (val.offset != null) ? Std.parseFloat(val.offset) : Constants.DEFAULT_ZOOM_OFFSET; // Using Std.parseFloat for safety
+    var intensity:Float = (val.intensity != null) ? Std.parseFloat(val.intensity) : 1.0; // Using Std.parseFloat for safety
+    var type:Int = (val.type != null) ? Std.int(val.type) : 0; // Using Std.int for safety
+
+    var easeInName:String = (val.easeIn != null) ? val.easeIn : "smoothStepIn";
+    var easeOutName:String = (val.easeOut != null) ? val.easeOut : "smoothStepOut";
+
+    var getEase = function(name) {
+        switch(name) {
+            case "sineIn": return FlxEase.sineIn;
+            case "sineOut": return FlxEase.sineOut;
+            case "sineInOut": return FlxEase.sineInOut;
+            case "quadIn": return FlxEase.quadIn;
+            case "quadOut": return FlxEase.quadOut;
+            case "quadInOut": return FlxEase.quadInOut;
+            case "cubeIn": return FlxEase.cubeIn;
+            case "cubeOut": return FlxEase.cubeOut;
+            case "cubeInOut": return FlxEase.cubeInOut;
+            case "quartIn": return FlxEase.quartIn;
+            case "quartOut": return FlxEase.quartOut;
+            case "quartInOut": return FlxEase.quartInOut;
+            case "quintIn": return FlxEase.quintIn;
+            case "quintOut": return FlxEase.quintOut;
+            case "quintInOut": return FlxEase.quintInOut;
+            case "expoIn": return FlxEase.expoIn;
+            case "expoOut": return FlxEase.expoOut;
+            case "expoInOut": return FlxEase.expoInOut;
+            case "circIn": return FlxEase.circIn;
+            case "circOut": return FlxEase.circOut;
+            case "circInOut": return FlxEase.circInOut;
+            case "backIn": return FlxEase.backIn;
+            case "backOut": return FlxEase.backOut;
+            case "backInOut": return FlxEase.backInOut;
+            case "elasticIn": return FlxEase.elasticIn;
+            case "elasticOut": return FlxEase.elasticOut;
+            case "elasticInOut": return FlxEase.elasticInOut;
+            case "bounceIn": return FlxEase.bounceIn;
+            case "bounceOut": return FlxEase.bounceOut;
+            case "bounceInOut": return FlxEase.bounceInOut;
+            case "smoothStepIn": return FlxEase.smoothStepIn;
+            case "smoothStepOut": return FlxEase.smoothStepOut;
+            case "smoothStepInOut": return FlxEase.smoothStepInOut;
+            case "smotherStepIn": return FlxEase.smotherStepIn;
+            case "smotherStepOut": return FlxEase.smotherStepOut;
+            case "smotherStepInOut": return FlxEase.smotherStepInOut;
+        }
+        return FlxEase.linear;
+    };
+
+    var easeIn = getEase(easeInName);
+    var easeOut = getEase(easeOutName);
+
+    switch (type) 
+    {
+      case 0: // Funkin or Normal
+        // Readjust base values for constant bop
+        state.cameraBopIntensity = (Constants.DEFAULT_BOP_INTENSITY - 1.0) * intensity + 1.0;
+        state.hudCameraZoomIntensity = (state.cameraBopIntensity - 1.0) * 2.0;
+        state.cameraZoomRate = rate;
+        state.cameraZoomRateOffset = offset;
+
+      case 1: // Yeahman (Smooth Zoom with Hold)
+        var zoomDuration:Float = (val.zoomDuration != null) ? Std.parseFloat(val.zoomDuration) : 0.5;
+        var holdDuration:Float = (val.holdDuration != null) ? Std.parseFloat(val.holdDuration) : 0.2;
+        
+        // Cancel any previous tween on this variable to prevent issues
+        FlxTween.cancelTweensOf(state, ["defaultHUDCameraZoom"]);
+        
+        // 1. Smoothly enlarge by changing the camera 'target'
+        FlxTween.tween(state, {defaultHUDCameraZoom: 1.0 * intensity}, zoomDuration / 2, {
+          ease: easeIn, 
+          onComplete: function(twn) {
+            
+            // 2. HOLD: The wait timer
+            new FlxTimer().start(holdDuration, function(tmr) {
+              
+              // 3. Return to normal (1.0) after the wait
+              FlxTween.tween(state, {defaultHUDCameraZoom: 1.0}, zoomDuration / 2, {
+                ease: easeOut
+              });
+            });
+          }
+        });
+      case 2: // Smother
+        // Use the same intensity logic as Funkin
+        state.cameraBopIntensity = (Constants.DEFAULT_BOP_INTENSITY - 1.0) * intensity + 1.0;
+        state.hudCameraZoomIntensity = (state.cameraBopIntensity - 1.0) * 2.0;
+        // Force it to play on every beat (entire BPM)
+        state.cameraZoomRate = 1; 
+        state.cameraZoomRateOffset = offset;
+      case 3: // Instant (Instant Zoom with Hold)
+        var holdDuration:Float = (val.holdDuration != null) ? Std.parseFloat(val.holdDuration) : 0.2;
+
+        // Cancel any previous tween on defaultHUDCameraZoom to avoid conflicts
+        FlxTween.cancelTweensOf(state, ["defaultHUDCameraZoom"]);
+
+        // 1. Instant zoom: Set the target and force the current zoom
+        state.defaultHUDCameraZoom = state.stageZoom * intensity; // Set the new zoom target
+        state.camHUD.zoom = state.defaultHUDCameraZoom; // Force the visual zoom of camHUD to match instantly
+
+        // 2. HOLD: The wait timer
+        new FlxTimer().start(holdDuration, function(tmr) {
+          // 3. Return to normal (1.0) after the wait
+          state.defaultHUDCameraZoom = state.stageZoom; // Reset the zoom target to stage normality
+        });
+
+      default:
+        state.cameraBopIntensity = (Constants.DEFAULT_BOP_INTENSITY - 1.0) * intensity + 1.0;
+        state.hudCameraZoomIntensity = (state.cameraBopIntensity - 1.0) * 2.0;
+        state.cameraZoomRate = rate;
+        state.cameraZoomRateOffset = offset;
+    }
+  }
+  
+
+  public override function getTitle():String
+  {
+    return 'Set Camera Bop';
+  }
+
+  /**
+   * ```
+   * {
+   *   'intensity': FLOAT, // Zoom amount
+   *   'rate': INT, // Zoom rate (beats/zoom)
+   * }
+   * ```
+   * @return SongEventSchema
+   */
+  public override function getEventSchema():SongEventSchema
+  {
+    return [
+      {
+      name: 'type',
+      title: 'Type',
+      defaultValue: 0, // Set to 0 as the "normal" bop by default.
+      type: 'enum',
+      keys: [
+        "Funkin" => 0,
+        "Yeahman (Song Yuh)" => 1,
+        "Smother" => 2,
+        "Instant" => 3 // New type for instant zoom
+      ]
+      },
+      {
+      name: 'intensity',
+      title: 'Intensity',
+      defaultValue: 1.0,
+      min: 0,
+      step: 0.1,
+      type: 'float',
+      units: 'x'
+    }, {
+      name: 'offset',
+      title: 'Offset',
+      defaultValue: 0,
+      step: 0.25,
+      type: 'float',
+      units: 'beats'
+    }, {
+      name: 'rate',
+      title: 'Rate',
+      defaultValue: 4,
+      min: 0,
+      step: 0.25,
+      type: 'float',
+      units: 'beats/zoom'
+    },
+    {
+      name: 'zoomDuration',
+      title: 'Zoom Duration (Type 1 & 2)',
+      defaultValue: 0.5, // Default duration of 0.5 seconds for the zoom tween
+      min: 0,
+      step: 0.1,
+      type: 'float',
+      units: 'seconds'
+    },
+    {
+      name: 'holdDuration',
+      title: 'Hold Duration (Type 1 only)',
+      defaultValue: 0.2, // Default duration of 0.2 seconds for the pause
+      min: 0,
+      step: 0.1,
+      type: 'float',
+      units: 'seconds'
+    },
+    {
+      name: 'easeIn',
+      title: 'Ease In (Type 1)',
+      defaultValue: 'smoothStepIn',
+      type: 'enum',
+      keys: [
+        "Linear" => "linear",
+        "Sine In" => "sineIn", "Sine Out" => "sineOut", "Sine InOut" => "sineInOut",
+        "Quad In" => "quadIn", "Quad Out" => "quadOut", "Quad InOut" => "quadInOut",
+        "Cube In" => "cubeIn", "Cube Out" => "cubeOut", "Cube InOut" => "cubeInOut",
+        "Quart In" => "quartIn", "Quart Out" => "quartOut", "Quart InOut" => "quartInOut",
+        "Quint In" => "quintIn", "Quint Out" => "quintOut", "Quint InOut" => "quintInOut",
+        "Expo In" => "expoIn", "Expo Out" => "expoOut", "Expo InOut" => "expoInOut",
+        "Circ In" => "circIn", "Circ Out" => "circOut", "Circ InOut" => "circInOut",
+        "Back In" => "backIn", "Back Out" => "backOut", "Back InOut" => "backInOut",
+        "Elastic In" => "elasticIn", "Elastic Out" => "elasticOut", "Elastic InOut" => "elasticInOut",
+        "Bounce In" => "bounceIn", "Bounce Out" => "bounceOut", "Bounce InOut" => "bounceInOut",
+        "Smooth Step In" => "smoothStepIn", "Smooth Step Out" => "smoothStepOut", "Smooth Step InOut" => "smoothStepInOut",
+        "Smoother Step In" => "smotherStepIn", "Smoother Step Out" => "smotherStepOut", "Smoother Step InOut" => "smotherStepInOut"
+      ]
+    },
+    {
+      name: 'easeOut',
+      title: 'Ease Out (Type 1)',
+      defaultValue: 'smoothStepOut',
+      type: 'enum',
+      keys: [
+        "Linear" => "linear",
+        "Sine In" => "sineIn", "Sine Out" => "sineOut", "Sine InOut" => "sineInOut",
+        "Quad In" => "quadIn", "Quad Out" => "quadOut", "Quad InOut" => "quadInOut",
+        "Cube In" => "cubeIn", "Cube Out" => "cubeOut", "Cube InOut" => "cubeInOut",
+        "Quart In" => "quartIn", "Quart Out" => "quartOut", "Quart InOut" => "quartInOut",
+        "Quint In" => "quintIn", "Quint Out" => "quintOut", "Quint InOut" => "quintInOut",
+        "Expo In" => "expoIn", "Expo Out" => "expoOut", "Expo InOut" => "expoInOut",
+        "Circ In" => "circIn", "Circ Out" => "circOut", "Circ InOut" => "circInOut",
+        "Back In" => "backIn", "Back Out" => "backOut", "Back InOut" => "backInOut",
+        "Elastic In" => "elasticIn", "Elastic Out" => "elasticOut", "Elastic InOut" => "elasticInOut",
+        "Bounce In" => "bounceIn", "Bounce Out" => "bounceOut", "Bounce InOut" => "bounceInOut",
+        "Smooth Step In" => "smoothStepIn", "Smooth Step Out" => "smoothStepOut", "Smooth Step InOut" => "smoothStepInOut",
+        "Smoother Step In" => "smotherStepIn", "Smoother Step Out" => "smotherStepOut", "Smoother Step InOut" => "smotherStepInOut"
+      ]
+    }];
+  }
+}

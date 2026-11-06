@@ -1,0 +1,87 @@
+{
+    "version": "1.0.0",
+    "name": "Chroma",
+    "assetPath": "characters/chroma",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "chroma",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 0.7
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                50,
+                -30
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                20,
+                -145
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                49,
+                9
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                98,
+                -38
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "bump",
+            "prefix": "bump",
+            "offsets": [
+                94,
+                -28
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "bluetooth",
+            "prefix": "bluetooth",
+            "offsets": [
+                22,
+                -19
+            ],
+            "frameRate": 18,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "idle",
+            "offsets": [
+                21,
+                -28
+            ],
+            "frameRate": 18,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

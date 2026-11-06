@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Dareireg",
+    "assetPath": "characters/dareireg",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.15,
+    "healthIcon": {
+        "id": "darei",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "DAREILEFT",
+            "offsets": [
+                -62,
+                -117
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "DAREIDOWN",
+            "offsets": [
+                -80,
+                -178
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "DAREIUP",
+            "offsets": [
+                -67,
+                -84
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "DAREIRIGHT",
+            "offsets": [
+                -86,
+                -129
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "DAREIIDLE",
+            "offsets": [
+                -78,
+                -121
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

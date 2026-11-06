@@ -1,0 +1,38 @@
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+
+class Dogshi extends Song {
+
+    public function new() {
+        super('dogshi');
+    }
+
+    override function onCreate() {
+        super.onCreate();
+
+         ModuleHandler.getModule('YeahUi').scriptCall('moveBar', [1, 0.1, 'linear']);
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+    }
+
+    override function onCountdownStart(event:CountdownScriptEvent):Void {
+        event.cancel();
+        super.onCountdownStart(event);
+
+        PlayState.instance.isInCountdown = true;
+        PlayState.instance.mayPauseGame = true;
+
+        PlayState.instance.startSong();
+    }
+      override function onStepHit(event:SongTimeScriptEvent) {
+    super.onStepHit(event);
+    switch (event.step) {
+      case 127:
+        ModuleHandler.getModule('YeahUi').scriptCall('moveBar', [0, 0.3, 'expoOut']);
+    }
+  }
+}

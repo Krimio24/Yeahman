@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Piss Yeahman",
+    "assetPath": "characters/kidnplay/piss-yeahman",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.8,
+    "healthIcon": {
+        "id": "piss",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idle pee",
+            "offsets": [
+                -9,
+                -7
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left",
+            "offsets": [
+                22,
+                -18
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right",
+            "offsets": [
+                -50,
+                -19
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up",
+            "offsets": [
+                -20,
+                14
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down",
+            "offsets": [
+                7,
+                -101
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

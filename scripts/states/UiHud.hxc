@@ -1,0 +1,25 @@
+package yeah.states;
+
+import funkin.graphics.FunkinSprite;
+import funkin.graphics.FunkinCamera;
+import funkin.Paths;
+import flixel.text.FlxText;
+
+class UiHud extends FunkinCamera {
+
+    var firstText:FlxText;
+    var firstImage:FunkinSprite;
+
+    public function new(type:Int, controllerModeSuprt:Bool) {
+
+        firstImage = new FunkinSprite();
+        switch (type) {
+            case -1:
+            if (controllerModeSuprt == true)  {
+            firstImage.loadGraphic(Paths.image('states/ui/aController')); 
+            }
+            case 0:
+            
+        }
+    }
+}

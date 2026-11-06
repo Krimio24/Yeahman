@@ -1,0 +1,108 @@
+{
+    "version": "1.0.0",
+    "name": "Yeahman Boyfriend",
+    "assetPath": "characters/bfyeahman",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.9,
+    "cameraOffsets": [0, -36],
+    "healthIcon": {
+        "id": "bfY",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idlebf",
+            "offsets": [
+                65,
+                52
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "leftbf",
+            "offsets": [
+                223,
+                -14
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "downbf",
+            "offsets": [
+                21,
+                37
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "upbf",
+            "offsets": [
+                17,
+                53
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "rightbf",
+            "offsets": [
+                21,
+                46
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFTmiss",
+            "prefix": "Leftmiss",
+            "offsets": [
+                218,
+                -43
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWNmiss",
+            "prefix": "downmiss",
+            "offsets": [
+                26,
+                -7
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUPmiss",
+            "prefix": "upmiss",
+            "offsets": [
+                33,
+                68
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHTmiss",
+            "prefix": "rightmiss",
+            "offsets": [
+                23,
+                67
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

@@ -1,0 +1,59 @@
+import flixel.FlxG;
+import flixel.addons.transition.FlxTransitionableState;
+
+import funkin.modding.module.Module;
+import funkin.ui.mainmenu.MainMenuState;
+import funkin.ui.AtlasMenuItem;
+
+class MapButton extends Module
+{
+	public function new()
+	{
+		super('MapButton');
+	}
+
+	public function onStateChangeEnd(event:StateChangeScriptEvent)
+	{
+		if (Std.isOfType(event.targetState, MainMenuState))
+		{
+			var playButton = createMenuItem('play', 'states/mainMenu/menuObjects', event.targetState.menuItems.length,
+			function() {
+				trace('Transitioning to MapState.');
+				var currentState = FlxG.state;
+				var targetState = new MapState();
+				FlxTransitionableState.skipNextTransIn = true;
+				currentState.startExitState(targetState);
+			}, false);
+			event.targetState.menuItems.addItem('play', playButton);
+			repositionMenuItems(event.targetState.menuItems);
+		}
+	}
+
+	function createMenuItem(name:String, atlas:String, id:Int, callback:Void->Void, fireInstantly:Bool):Void
+	{
+		var item = new AtlasMenuItem(0, 0, name, Paths.getSparrowAtlas(atlas), callback);
+		item.fireInstantly = fireInstantly;
+		item.ID = id;
+
+		item.scrollFactor.set(0, 0.4);
+
+		item.centered = true;
+		item.animation.addByPrefix('static', 'Play0000');
+		item.animation.addByPrefix('idle', 'Play');
+		item.changeAnim('idle');
+
+		return item;
+	}
+
+	function repositionMenuItems(menuItems:AtlasMenuList)
+	{
+		var spacing = 160;
+		var top = (FlxG.height - (spacing * (menuItems.length - 1))) / 2;
+		for (i in 0...menuItems.length)
+		{
+			var menuItem = menuItems.members[i];
+			menuItem.x = FlxG.width / 2;
+			menuItem.y = top + spacing * i;
+		}
+	}
+}

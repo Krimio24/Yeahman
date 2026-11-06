@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Blobby",
+    "assetPath": "characters/blobby",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1.6,
+    "healthIcon": {
+        "id": "blobby",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "blobby idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "blobby left",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "blobby down",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "blobby up",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "blobby right",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

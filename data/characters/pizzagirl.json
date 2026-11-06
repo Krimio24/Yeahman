@@ -1,0 +1,77 @@
+{
+    "version": "1.0.0",
+    "name": "Pizzagirl",
+    "assetPath": "characters/Pizzagirl",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "pg",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "Left Pose",
+            "offsets": [
+                -16,
+                -84
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Right Pose",
+            "offsets": [
+                -132,
+                -105
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Down Pose",
+            "offsets": [
+                -78,
+                -182
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Up Pose",
+            "offsets": [
+                -72,
+                16
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "Peace",
+            "prefix": "Taunt",
+            "offsets": [
+                170,
+                145
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "Idle",
+            "offsets": [
+                -90,
+                -80
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

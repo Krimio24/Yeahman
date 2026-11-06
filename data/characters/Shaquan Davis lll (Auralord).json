@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Shaquan davis lll (auralord)",
+    "assetPath": "characters/Shaquan_Davis_lll_Auralord",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "mom",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "Shaquan Davis lll (Auralord) idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Shaquan Davis lll (Auralord) left",
+            "offsets": [
+                250,
+                -23
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Shaquan Davis lll (Auralord) right",
+            "offsets": [
+                10,
+                -60
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Shaquan Davis lll (Auralord) down",
+            "offsets": [
+                20,
+                -160
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Shaquan Davis lll (Auralord) up",
+            "offsets": [
+                14,
+                71
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

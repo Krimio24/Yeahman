@@ -1,0 +1,35 @@
+import funkin.graphics.FunkinSprite;
+import flixel.FlxG;
+import funkin.Paths;
+
+class Door extends FunkinSprite {
+
+    public static var instances = new Map();
+    var randomWord:Array<String> = ["A", "B"];
+    var idE:Int;
+
+    public function new(id:Int, x:Int, y:Int) {
+    super(x, y);
+    this.idE = id;
+
+    var random:String = FlxG.random.getObject(randomWord);
+    var animName:String = random + 'Door';
+
+    this.loadSparrow(Paths.image('states/residents/resident/doors'));
+    this.x = x;
+    this.y = y;
+
+    this.animation.addByPrefix('idle', animName, 24, true);
+
+    instances.set(id, this);
+    init();
+    }
+
+    public function init() {
+    this.animation.play('idle');
+    }
+
+    public static function getById(id:Int) {
+    return instances.get(id);
+    }
+}

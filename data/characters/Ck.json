@@ -1,0 +1,117 @@
+{
+    "version": "1.0.0",
+    "name": "Ck",
+    "assetPath": "characters/SonicCk",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "ck",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "Left Pose",
+            "offsets": [
+                153,
+                227
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Down Pose",
+            "offsets": [
+                -8,
+                141
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Up Pose",
+            "offsets": [
+                -59,
+                320
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Right Pose",
+            "offsets": [
+                -76,
+                214
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFTmiss",
+            "prefix": "Miss_L",
+            "offsets": [
+                80,
+                273
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWNmiss",
+            "prefix": "Miss_D",
+            "offsets": [
+                80,
+                273
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUPmiss",
+            "prefix": "Miss_U",
+            "offsets": [
+                80,
+                273
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHTmiss",
+            "prefix": "Miss_R",
+            "offsets": [
+                80,
+                273
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "hey",
+            "prefix": "Yeah!",
+            "offsets": [
+                -11,
+                335
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "Idle",
+            "offsets": [
+                -25,
+                239
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": true
+}

@@ -1,0 +1,454 @@
+package funkin.play;
+
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.text.FlxText;
+import flixel.addons.display.FlxTiledSprite;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import flixel.math.FlxMath;
+
+import funkin.Paths;
+import funkin.audio.FunkinSound;
+import funkin.graphics.FunkinSprite;
+import funkin.play.PlayState;
+import funkin.play.PlayStatePlaylist;
+import funkin.ui.MusicBeatSubState;
+import funkin.menus.MainMenuState;
+
+class YeahPauseMenu extends MusicBeatSubState
+{
+    var pauseButtons:Array<FunkinSprite> = [];
+    var textStrips:Array<FlxTiledSprite> = [];
+
+    var albumSprite:FunkinSprite;
+    var configButton:FunkinSprite;
+    var background:FunkinSprite;
+    var vignette:FunkinSprite;
+
+    var music:FunkinSound;
+
+    var selectedIndex:Int = 0;
+    var jitterTimer:Float = 0;
+
+    var songTitle:String = "";
+
+    var menuEntries:Array<String> = [
+        "Resume",
+        "Restart Song",
+        "Exit to Menu"
+    ];
+
+    var menuReady:Bool = false;
+
+    public function new()
+    {
+        super();
+    }
+
+    override public function create():Void
+    {
+        super.create();
+
+        FlxG.mouse.visible = true;
+
+        createBackground();
+        createSongTitle();
+        createAlbum();
+        createButtons();
+        createConfigButton();
+        createMusic();
+
+        menuReady = true;
+    }
+
+    function createBackground():Void
+    {
+        background = new FunkinSprite().makeGraphic(
+            FlxG.width + 10,
+            FlxG.height + 10,
+            FlxColor.BLACK
+        );
+
+        background.scrollFactor.set();
+        background.alpha = 0.6;
+        background.screenCenter();
+        add(background);
+
+        vignette = new FunkinSprite().loadGraphic(
+            Paths.image("pause/vignette")
+        );
+
+        vignette.setGraphicSize(FlxG.width, FlxG.height);
+        vignette.updateHitbox();
+        vignette.screenCenter();
+        vignette.scrollFactor.set();
+        vignette.alpha = 0.9;
+
+        add(vignette);
+    }
+
+    function createSongTitle():Void
+    {
+        songTitle = PlayState.instance.currentChart.songName;
+
+        var txt = new FlxText(0, 0, 0, songTitle + " ");
+        txt.setFormat(
+            Paths.font("Moderniz.otf"),
+            64,
+            FlxColor.WHITE
+        );
+
+        txt.drawFrame();
+
+        var spacingY:Float = txt.height * 0.6;
+        var count:Int = Math.ceil(FlxG.height / spacingY) + 1;
+
+        for (i in 0...count)
+        {
+            var strip = new FlxTiledSprite(
+                txt.graphic,
+                FlxG.width + 100,
+                txt.height,
+                true,
+                false
+            );
+
+            strip.x = 0;
+            strip.y = i * spacingY;
+            strip.alpha = 0.05;
+            strip.scrollFactor.set();
+
+            add(strip);
+            textStrips.push(strip);
+        }
+    }
+
+    function createAlbum():Void
+    {
+        var songName = PlayState.instance.currentSong.id;
+
+        if (
+            songName == "hope-erect"
+            || songName == "contrast-erect"
+            || songName == "50cents"
+        )
+        {
+            songName = "unused";
+        }
+
+        albumSprite = new FunkinSprite();
+
+        var graphic = Paths.image("pause/album/" + songName);
+
+        if (graphic == null) return;
+
+        albumSprite.loadGraphic(graphic);
+        albumSprite.antialiasing = true;
+
+        albumSprite.setGraphicSize(
+            0,
+            Std.int(FlxG.height * 0.55)
+        );
+
+        albumSprite.updateHitbox();
+        albumSprite.screenCenter(0x10);
+
+        var targetX = FlxG.width - albumSprite.width - 80;
+        var targetY = albumSprite.y;
+
+        albumSprite.x = targetX - 50;
+        albumSprite.y = targetY + 100;
+        albumSprite.angle = 45;
+        albumSprite.alpha = 0;
+        albumSprite.scrollFactor.set();
+
+        add(albumSprite);
+
+        FlxTween.tween(
+            albumSprite,
+            {
+                alpha: 1,
+                angle: 5,
+                x: targetX,
+                y: targetY
+            },
+            0.8,
+            {
+                ease: FlxEase.expoOut
+            }
+        );
+    }
+
+    function createButtons():Void
+    {
+        var startY = (FlxG.height - (menuEntries.length * 130)) / 2 + 30;
+
+        for (i in 0...menuEntries.length)
+        {
+            var animName = "";
+
+            switch (menuEntries[i])
+            {
+                case "Resume":
+                    animName = "Resume instance 1";
+
+                case "Restart Song":
+                    animName = "Restart instance 1";
+
+                case "Exit to Menu":
+                    animName = "Quit instance 1";
+            }
+
+            var item = new FunkinSprite(0, 0);
+
+            item.frames = Paths.getSparrowAtlas("pause/buttons");
+            item.animation.addByPrefix("idle", animName, 24, true);
+            item.animation.play("idle");
+
+            item.scale.set(1, 1);
+            item.updateHitbox();
+
+            item.y = startY + (i * 130);
+            item.ID = i;
+
+            item.x = -500;
+            item.alpha = 0;
+
+            add(item);
+            pauseButtons.push(item);
+
+            FlxTween.tween(
+                item,
+                {
+                    x: 150,
+                    alpha: 1
+                },
+                0.5,
+                {
+                    ease: FlxEase.expoOut,
+                    startDelay: i * 0.1
+                }
+            );
+        }
+
+        updateSelection();
+    }
+
+    function createConfigButton():Void
+    {
+        configButton = new FunkinSprite(10, 10);
+
+        configButton.frames = Paths.getSparrowAtlas("pause/wrench");
+        configButton.animation.addByPrefix("entry", "Enter", 24, false);
+        configButton.animation.addByPrefix("idle", "Idle", 24, true);
+
+        configButton.scrollFactor.set();
+        configButton.animation.play("entry");
+        configButton.scale.set(0, 0);
+
+        add(configButton);
+
+        FlxTween.tween(
+            configButton.scale,
+            {
+                x: 0.7,
+                y: 0.7
+            },
+            0.7,
+            {
+                ease: FlxEase.backOut
+            }
+        );
+
+        new FlxTimer().start(0.4, function(tmr:FlxTimer)
+        {
+            if (configButton != null && configButton.exists)
+                configButton.animation.play("idle");
+        });
+    }
+
+    function createMusic():Void
+    {
+        music = FunkinSound.load(
+            Paths.music("TEATIME!!!/tea-time"),
+            0,
+            true
+        );
+
+        if (music != null)
+        {
+            music.play();
+        }
+    }
+
+    function updateSelection():Void
+    {
+        for (btn in pauseButtons)
+        {
+            if (btn.ID == selectedIndex)
+            {
+                btn.alpha = 1;
+                btn.scale.set(1.2, 1.2);
+            }
+            else
+            {
+                btn.alpha = 0.6;
+                btn.scale.set(1, 1);
+            }
+        }
+    }
+
+    function changeSelection(value:Int):Void
+    {
+        selectedIndex = value;
+
+        if (selectedIndex < 0)
+            selectedIndex = pauseButtons.length - 1;
+
+        if (selectedIndex >= pauseButtons.length)
+            selectedIndex = 0;
+
+        updateSelection();
+
+        FunkinSound.playOnce(
+            Paths.sound("ui/scroll")
+        );
+    }
+
+    function select():Void
+    {
+        switch (selectedIndex)
+        {
+            case 0:
+                resumeGame();
+
+            case 1:
+                restartSong();
+
+            case 2:
+                exitToMenu();
+        }
+    }
+
+    function resumeGame():Void
+    {
+        stopMusic();
+        close();
+    }
+
+    function restartSong():Void
+    {
+        stopMusic();
+
+        PlayState.instance.needsReset = true;
+        close();
+    }
+
+    function exitToMenu():Void
+    {
+        stopMusic();
+
+        FlxG.switchState(function()
+        {
+            return new MainMenuState();
+        });
+    }
+
+    function stopMusic():Void
+    {
+        if (music != null)
+        {
+            music.stop();
+            music.destroy();
+            music = null;
+        }
+    }
+
+    override public function update(elapsed:Float):Void
+    {
+        super.update(elapsed);
+
+        if (!menuReady) return;
+
+        for (i in 0...textStrips.length)
+        {
+            var strip = textStrips[i];
+            var speed = 40 * elapsed;
+
+            if (i % 2 == 0)
+                strip.scrollX -= speed;
+            else
+                strip.scrollX += speed;
+        }
+
+        jitterTimer += elapsed;
+
+        if (jitterTimer >= 0.3)
+        {
+            jitterTimer = 0;
+
+            if (albumSprite != null && albumSprite.exists)
+            {
+                var scale = albumSprite.scale.y;
+
+                albumSprite.scale.x = scale * (
+                    1 + FlxG.random.float(-0.1, 0.1)
+                );
+            }
+        }
+
+        if (FlxG.keys.justPressed.DOWN)
+        {
+            changeSelection(selectedIndex + 1);
+        }
+        else if (FlxG.keys.justPressed.UP)
+        {
+            changeSelection(selectedIndex - 1);
+        }
+
+        if (FlxG.keys.justPressed.ENTER)
+        {
+            FunkinSound.playOnce(Paths.sound("ui/confirm"));
+            select();
+        }
+
+        if (
+            FlxG.keys.justPressed.ESCAPE
+            || FlxG.keys.justPressed.BACKSPACE
+        )
+        {
+            resumeGame();
+        }
+    }
+
+    override public function destroy():Void
+    {
+        stopMusic();
+
+        FlxG.mouse.visible = false;
+
+        if (albumSprite != null)
+        {
+            FlxTween.cancelTweensOf(albumSprite);
+        }
+
+        if (configButton != null)
+        {
+            FlxTween.cancelTweensOf(configButton);
+        }
+
+        for (btn in pauseButtons)
+        {
+            if (btn != null)
+                FlxTween.cancelTweensOf(btn);
+        }
+
+        pauseButtons = [];
+        textStrips = [];
+
+        super.destroy();
+    }
+}

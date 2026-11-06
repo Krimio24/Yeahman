@@ -1,0 +1,57 @@
+import funkin.play.song.Song;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import yeah.YeahUi;
+import funkin.play.PlayState;
+
+class TwelveAM extends Song {
+	public function new() {
+		super('12am');
+	}
+
+	var blackBG:FlxSprite;
+
+	override function onCreate() {
+		super.onCreate();
+
+		FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, 0.01);
+
+		blackBG = new FlxSprite();
+		blackBG.makeGraphic(10000, 10000, 0xFF000000);
+		blackBG.screenCenter();
+		blackBG.scrollFactor.set();
+		blackBG.zIndex = 100000;
+		PlayState.instance.add(blackBG);
+
+		ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+		ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+	}
+
+	override function onCountdownStart(event:CountdownScriptEvent):Void {
+		event.cancel();
+		super.onCountdownStart(event);
+
+		PlayState.instance.isInCountdown = true;
+		PlayState.instance.mayPauseGame = true;
+
+		PlayState.instance.startSong();
+        FlxTween.tween(blackBG, {alpha: 0}, 17);
+	}
+
+	function onStepHit(event:SongTimeScriptEvent):Void {
+		super.onStepHit(event);
+		curStep = event.step;
+		switch (curStep) {
+			case 127:
+				FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, 0.5);
+			case 512:
+				ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 0.7, "linear"]);
+			case 639:
+				ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [0, 0.5, "expoOut"]);
+		}
+	}
+}

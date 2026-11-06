@@ -1,0 +1,37 @@
+{
+	"renderType": "sparrow",
+	"version": "1.0.1",
+	"offsets": [
+		240,
+		-40
+	],
+	"danceEvery": 2,
+	"scale": 1,
+	"name": "",
+	"cameraOffsets": [
+		160,
+		100
+	],
+	"flipX": false,
+	"isPixel": false,
+	"singTime": 6.1,
+	"startingAnimation": "idle",
+	"healthIcon": {
+		"id": "cryp",
+		"isPixel": false
+	},
+	"assetPath": "characters/cupdrop",
+	"animations": [
+		{
+			"frameIndices": [],
+			"prefix": "cupthrow",
+			"offsets": [
+				16,
+				-10
+			],
+			"frameRate": 24,
+			"name": "idle",
+			"looped": false
+		}
+	]
+}

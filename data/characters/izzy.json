@@ -1,0 +1,87 @@
+{
+    "version": "1.0.0",
+    "name": "Izzy",
+    "assetPath": "characters/izzysprites",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.9,
+    "healthIcon": {
+        "id": "izzy",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singDOWN",
+            "prefix": "Down instance 1",
+            "offsets": [
+                -39,
+                -4
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Left instance 1",
+            "offsets": [
+                95,
+                93
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Up instance 1",
+            "offsets": [
+                -47,
+                174
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Right instance 1",
+            "offsets": [
+                -31,
+                100
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "Idle instance 1",
+            "offsets": [
+                -77,
+                83
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "sorry",
+            "prefix": "Sorry instance 1",
+            "offsets": [
+                -19,
+                -11
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT-alt",
+            "prefix": "RightAlt instance 1",
+            "offsets": [
+                -58,
+                62
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

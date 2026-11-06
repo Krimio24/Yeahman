@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Jads",
+    "assetPath": "characters/jads",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.9,
+    "healthIcon": {
+        "id": "jads",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "jidle instance 1",
+            "offsets": [
+                191,
+                174
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "jleft instance 1",
+            "offsets": [
+                171,
+                184
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "jdown instance 1",
+            "offsets": [
+                159,
+                152
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "jup instance 1",
+            "offsets": [
+                189,
+                293
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "jright instance 1",
+            "offsets": [
+                273,
+                168
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

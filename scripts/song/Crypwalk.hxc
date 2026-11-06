@@ -1,0 +1,134 @@
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import funkin.modding.events.ScriptEvent;
+import funkin.modding.module.ModuleHandler;
+import funkin.modding.events.CountdownScriptEvent;
+import flixel.util.FlxTimer;
+import funkin.graphics.video.FunkinVideoSprite;
+import Std;
+import Math;
+import Reflect;
+import funkin.Paths;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import yeah.YeahUi;
+
+class CrypWalk extends Song {
+
+  var videoSprite:FunkinVideoSprite;
+  var videoDestroyed:Bool = false;
+  var blackBG:FlxSprite;
+
+
+  public function new()
+  {
+    super('crypwalk');
+  }
+
+  override function onCreate() {
+
+        ModuleHandler.getModule('YeahPause').scriptCall('activate', []);
+        ModuleHandler.getModule('YeahUi').scriptCall('spawnHealthBar', []);
+        ModuleHandler.getModule('YeahUi').scriptCall("moveBar", [1, 0.01, "linear"]);
+
+				angela = new FlxSprite();
+				angela.frames = Paths.getSparrowAtlas('stages/angela');
+				angela.animation.addByPrefix('hey', 'heylisten', 24, false);
+				angela.setPosition(650 , 425);
+				angela.updateHitbox();
+				angela.scrollFactor.set(1, 1);
+				PlayState.instance.add(angela);
+        angela.alpha = 0.00001;
+        angela.y -= 1000;
+				angela.x -= 700;
+    
+            ModuleHandler.getModule("YeahUi").scriptCall("spawnHealthBar", []);
+        
+
+        blackBG = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000000);
+        blackBG.screenCenter();
+        blackBG.scrollFactor.set();
+        blackBG.zIndex = PlayState.instance.playerStrumline.zIndex - 20;
+        PlayState.instance.add(blackBG);
+
+        videoSprite = new FunkinVideoSprite();
+        if (videoSprite.load(Paths.videos("crypwalkcutscene"))) {
+            videoSprite.bitmap.volumeAdjust = 0;
+            videoSprite.scrollFactor.set(0, 0);
+            videoSprite.cameras = [PlayState.instance.camHUD];
+            videoSprite.play();
+            
+            videoSprite.bitmap.onFormatSetup.add(function() {
+                var zoom:Float = FlxG.isMobile ? 0.8 : 1;
+                videoSprite.setGraphicSize(Std.int(FlxG.width * zoom), Std.int(FlxG.height * zoom));
+                videoSprite.updateHitbox();
+                videoSprite.screenCenter();
+            });
+
+            videoSprite.bitmap.onEndReached.add(function() {
+                videoDestroyed = true;
+                ModuleHandler.getModule("YeahUi").scriptCall("moveBar", [2, 1.2, "expoOut"]);
+                FlxTween.tween(PlayState.instance.playerStrumline, {alpha: 1}, 1.5);
+                videoSprite.destroy();
+                blackBG.destroy();
+            });
+
+            videoSprite.zIndex = PlayState.instance.playerStrumline.zIndex - 10;
+            PlayState.instance.add(videoSprite);
+            PlayState.instance.refresh();
+        }
+     }
+  
+
+  override function onCountdownStart(event:CountdownScriptEvent):Void
+  {
+        event.cancel();
+        super.onCountdownStart(event);
+        
+        PlayState.instance.isInCountdown = true;
+        PlayState.instance.mayPauseGame = true;
+
+        PlayState.instance.startSong();
+        PlayState.instance.playerStrumline.alpha = 0;
+    }
+      function onStepHit(event:SongTimeScriptEvent):Void {
+        super.onStepHit(event);
+        curStep = event.step;
+        switch (curStep) {
+
+		case 705:
+	    FlxTween.tween(PlayState.instance.camHUD, {alpha: 0}, 1);
+		case 708:
+			FlxTween.tween(PlayState.instance, {currentCameraZoom: PlayState.instance.currentCameraZoom + 0.3}, 1.5, {ease: FlxEase.cubeOut});
+		case 716:
+            if (Preferences.naughtyness == false) {
+           FlxG.sound.play(Paths.sound("censorBeep"), 10);
+         }
+		case 768:
+			PlayState.instance.cameraFollowPoint.setPosition(PlayState.instance.currentStage.getBoyfriend().cameraFocusPoint.x, PlayState.instance.currentStage.getBoyfriend().cameraFocusPoint.y);
+			angela.animation.play('hey', false);
+            angela.alpha = 1;
+		case 784:
+			PlayState.instance.cameraFollowPoint.setPosition(PlayState.instance.currentStage.getDad().cameraFocusPoint.x, PlayState.instance.currentStage.getDad().cameraFocusPoint.y);
+			FlxTween.tween(PlayState.instance.camHUD, {alpha: 1}, 1);
+			FlxTween.tween(PlayState.instance, {currentCameraZoom: PlayState.instance.currentCameraZoom -0.3}, 1.5, {ease: FlxEase.cubeOut});
+		
+		case 1039:
+	    FlxTween.tween(PlayState.instance.playerStrumline, {alpha: 0}, 3.2);
+      ModuleHandler.getModule("YeahUi").scriptCall("moveBar", [1, 1, "smotherStepOut"]);
+		case 1104:
+	    FlxTween.tween(PlayState.instance.playerStrumline, {alpha: 1}, 0.1);
+			ModuleHandler.getModule("YeahUi").scriptCall("moveBar", [0, 0.2, "expoOut"]);
+        }
+      }
+          override function onPause(event:ScriptEvent) {
+    if (videoSprite != null && !videoDestroyed) videoSprite.pause();
+  }
+
+  override function onResume(event:ScriptEvent) {
+    if (videoSprite != null && !videoDestroyed) videoSprite.resume();
+  }
+}
+

@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Spookyyeah",
+    "assetPath": "characters/spooky",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 0.85,
+    "healthIcon": {
+        "id": "spooky",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "Idle",
+            "offsets": [
+                -495,
+                -111
+            ],
+            "frameRate": 14,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "Left",
+            "offsets": [
+                -611,
+                -20
+            ],
+            "frameRate": 14,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "Down",
+            "offsets": [
+                -678,
+                -443
+            ],
+            "frameRate": 14,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "Up",
+            "offsets": [
+                -567,
+                -108
+            ],
+            "frameRate": 14,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "Right",
+            "offsets": [
+                -799,
+                -14
+            ],
+            "frameRate": 14,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

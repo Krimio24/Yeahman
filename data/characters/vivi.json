@@ -1,0 +1,77 @@
+{
+    "version": "1.0.0",
+    "name": "Vivi",
+    "assetPath": "characters/vivi",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "gf",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "danceLeft",
+            "prefix": "danceleft",
+            "offsets": [
+                0,
+                -9
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "danceRight",
+            "prefix": "danceright",
+            "offsets": [
+                0,
+                -10
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "ay",
+            "prefix": "ay",
+            "offsets": [
+                -10,
+                20
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "sigh",
+            "prefix": "sigh",
+            "offsets": [
+                -26,
+                -10
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "what",
+            "prefix": "what",
+            "offsets": [
+                8,
+                25
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        },
+        {
+            "name": "ha",
+            "prefix": "ha",
+            "offsets": [
+                -10,
+                -21
+            ],
+            "frameRate": 24,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

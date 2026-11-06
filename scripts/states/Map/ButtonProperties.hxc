@@ -1,0 +1,59 @@
+import haxe.Json;
+import funkin.Paths;
+import funkin.Assets;
+
+typedef MapData = {
+    var id:Int;                
+    var sprite:Array<Dynamic>; 
+}
+
+class ButtonProperties {
+
+    static var mapData:Array<MapData> = null;
+
+    static function initData() {
+        if (mapData != null) return;
+
+        // Intentamos cargar desde la subcarpeta manifest como sugeriste
+        var path:String = Paths.json("manifest/mapPos");
+        
+        // Fallback: si no existe en manifest, probamos en la raíz de data
+        if (!Assets.exists(path)) {
+            trace("ButtonProperties: manifest/mapPos not found, trying root mapPos...");
+            path = Paths.json("mapPos");
+        }
+
+        trace("ButtonProperties: Final attempt path: " + path);
+        if (Assets.exists(path)) {
+            mapData = Json.parse(Assets.getText(path));
+            trace("ButtonProperties: mapPos.json loaded successfully. Number of items: " + mapData.length);
+        } else {
+            trace("Error: No se pudo encontrar mapPos.json en la carpeta data.");
+            mapData = [];
+        }
+    }
+
+    public static function getPos(id:Int):Array<Float> {
+        initData();
+        for (item in mapData) {
+            if (item.id == id && item.sprite != null && item.sprite.length >= 3) {
+                trace('ButtonProperties: getPos for ID ${id} found. Returning [${item.sprite[1]}, ${item.sprite[2]}]');
+                return [item.sprite[1], item.sprite[2]];
+            }
+        }
+        trace('ButtonProperties: getPos for ID ${id} not found. Returning default [0, 0]');
+        return [0, 0];
+    }
+
+    public static function getPath(id:Int):String {
+        initData();
+        for (item in mapData) {
+            if (item.id == id && item.sprite != null && item.sprite.length > 0) {
+                // Retornamos solo la key (ej: 'states/map/btn') 
+                // porque MapState.hxc ya usa loadTexture() que llama a Paths.image()
+                return item.sprite[0];
+            }
+        }
+        return "";
+    }
+}

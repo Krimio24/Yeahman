@@ -1,0 +1,58 @@
+import flixel.FlxSprite;
+import funkin.paths.Paths;
+import funkin.play.PlayState;
+import funkin.play.song.Song;
+import funkin.Paths;
+import funkin.Preferences;
+import funkin.Conductor;
+import flixel.FlxG;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import openfl.Lib;
+import flixel.util.FlxSpriteUtil;
+import funkin.play.stage.Stage;
+import funkin.modding.module.ModuleHandler;
+import flixel.sound.FlxSound;
+
+class CrypBgStage extends Stage
+{
+    function new()
+    {
+        super('crypbg3');
+    }
+
+    override function onCreate() //Pc VERSION
+    {
+        super.onCreate();
+    }
+
+	var hudModule = ModuleHandler.getModule("YeahUi");
+
+    override function buildStage()
+		{
+        super.buildStage();
+
+
+				crypbg = new FlxSprite(-1100, -800).loadGraphic(Paths.image('stages/newcrypbg3'));
+				add(crypbg);
+				crypbg.scale.set(0.8,0.8);
+				crypbg.scrollFactor.set(1, 1);
+
+				sofia = new FlxSprite();
+				sofia.frames = Paths.getSparrowAtlas('stages/SofiaCRYPGF');
+				sofia.animation.addByPrefix('surprise', 'SofiaSurpise', 24, false);
+				sofia.animation.addByPrefix('idle', 'SofiaBoppinh', 24, true);
+				sofia.setPosition(-200 , 400);
+				sofia.updateHitbox();
+				sofia.scale.set(0.8, 0.8);
+				add(sofia);
+				sofia.animation.play('idle');
+
+				sofia.y -= 1000;
+				sofia.x -= 700;
+				crypbg.y -= 1000;
+				crypbg.x -= 700;
+    
+    }
+}

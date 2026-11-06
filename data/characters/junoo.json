@@ -1,0 +1,91 @@
+{
+    "version": "1.0.0",
+    "name": "Junoo",
+    "assetPath": "characters/juno",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 1,
+    "healthIcon": {
+        "id": "face",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "juno idle",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": [
+                0,
+                1,
+                2
+            ]
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "juno left",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": [
+                0,
+                1,
+                1,
+                2
+            ]
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "juno down",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": [
+                0,
+                1,
+                1,
+                2
+            ]
+        },
+        {
+            "name": "singUP",
+            "prefix": "juno up",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": [
+                0,
+                1,
+                1,
+                2
+            ]
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "juno right",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 8,
+            "frameIndices": [
+                0,
+                1,
+                1,
+                2
+            ]
+        }
+    ],
+    "flipX": false
+}

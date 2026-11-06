@@ -1,0 +1,37 @@
+{
+ "version": "2.2.4",
+ "songName": "KONG",
+ "artist": "River, Fueg0, Chroma, Cryptizzle",
+ "charter": "Fidy50",
+ "offsets": { },
+ "playData": {
+  "difficulties": [
+   "normal"
+  ],
+  "characters": {
+   "player": "angeladogshi",
+   "opponent": "bq",
+   "opponentVocals": [
+    "bq"
+   ],
+   "playerVocals": [
+    "angeladogshi"
+   ]
+  },
+  "stage": "secter0",
+  "noteStyle": "yerman",
+  "ratings": {
+   "normal": 3
+  },
+  "previewEnd": 0
+ },
+ "generatedBy": "Friday Night Funkin' - v0.8.4",
+ "timeChanges": [
+  {
+   "t": 0,
+   "b": 0,
+   "bpm": 155,
+   "bt": [4, 4, 4, 4]
+  }
+ ]
+}

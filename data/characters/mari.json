@@ -1,0 +1,40 @@
+{
+    "version": "1.0.0",
+    "renderType": "sparrow",
+    "offsets": [
+        0,
+        0
+    ],
+    "danceEvery": 2,
+    "scale": 1.1,
+    "name": "Mari",
+    "flipX": false,
+    "cameraOffsets": [
+        120,
+        200
+    ],
+    "singTime": 4,
+    "startingAnimation": "idle",
+    "isPixel": false,
+    "healthIcon": {
+        "offsets": [
+            0,
+            0
+        ],
+        "isPixel": false,
+        "scale": 1,
+        "id": "gf",
+        "flipX": false
+    },
+    "assetPath": "characters/1k/mari",
+    "animations": [
+        {
+            "flipY": false,
+            "frameRate": 24,
+            "prefix": "mari idle",
+            "flipX": false,
+            "looped": false,
+            "name": "idle"
+        }
+    ]
+}

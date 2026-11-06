@@ -1,0 +1,140 @@
+import funkin.play.notes.notestyle.ScriptedNoteStyle;
+import funkin.play.notes.NoteSprite;
+import funkin.play.notes.StrumlineNote;
+import funkin.play.notes.NoteSplash;
+import funkin.play.notes.NoteHoldCover;
+import funkin.play.notes.SustainTrail;
+import funkin.graphics.shaders.AdjustColorShader;
+import funkin.play.PlayState;
+import funkin.Conductor;
+import flixel.util.FlxTimer;
+import funkin.modding.module.ModuleHandler;
+import Std;
+import flixel.FlxG;
+
+class PaintNoteStyle extends ScriptedNoteStyle
+{
+	public function new()
+	{
+		super("paint");
+	}
+
+	override function applyStrumlineAnimations(target:StrumlineNote, dir:Dynamic):Void
+	{
+		// Comprueba si la nota pertenece al oponente para ocultarla.
+		// La propiedad `isPlayer` la establece el motor del juego (desde PlayState).
+		if (target != null && !target.isPlayer)
+		{
+			target.visible = false;
+			return;
+		}
+
+
+		super.applyStrumlineAnimations(target, dir);
+
+		target.x += 20;
+		target.y += 20;
+
+		// Si NO estamos en un dispositivo móvil, hacemos la strumline más pequeña.
+		// Puedes ajustar el 0.7 al tamaño que prefieras (ej. 0.6 para más pequeño, 0.5 para la mitad, et
+
+		// Convertimos la dirección a texto por si el juego devuelve un número (0, 1, 2, 3)
+		var rawDir = Std.string(dir).toUpperCase();
+		var dirName = rawDir;
+		if (rawDir == "0") dirName = "LEFT";
+		else if (rawDir == "1") dirName = "DOWN";
+		else if (rawDir == "2") dirName = "UP";
+		else if (rawDir == "3") dirName = "RIGHT";
+
+		target.animation.addByPrefix('staticAlt', 'altArrow' + dirName, 24, false);
+
+		var noteTarget = target;
+
+		// Usamos un timer infinito para simular un 'update' y cambiar la animación en cada beat
+		new FlxTimer().start(0.04, function(tmr:FlxTimer) {
+			if (noteTarget == null || !noteTarget.alive) {
+				tmr.cancel();
+				return;
+			}
+
+			// Ocultar forzosamente toda la línea del oponente (receptores y notas que bajan)
+			if (PlayState.instance != null && PlayState.instance.opponentStrumline != null) {
+				PlayState.instance.opponentStrumline.visible = false;
+			}
+
+			if (PlayState.instance != null && Conductor.instance != null) {
+				var useAlt = (Conductor.instance.currentBeat % 2 != 0);
+				var animName = useAlt ? 'staticAlt' : 'static';
+
+				// Solo cambiamos si no se está presionando la nota
+				if (noteTarget.animation.name != 'confirm' && noteTarget.animation.name != 'press') {
+					if (noteTarget.animation.name != animName) {
+						noteTarget.playAnimation(animName);
+						noteTarget.centerOffsets();
+					}
+				}
+			}
+		}, 0);
+	}
+
+	override function buildSplashSprite(target:NoteSplash):Void
+	{
+		super.buildSplashSprite(target);
+        
+		var shader = new AdjustColorShader();
+		target.shader = shader;
+
+		var splashTarget = target;
+
+		// Usamos Timer para evitar errores de HScript con switch y asegurar que detectamos la animación
+		new FlxTimer().start(0.04, function(tmr:FlxTimer) {
+			// Si el objeto es nulo (el estado se cerró), cancelamos.
+			if (splashTarget == null) {
+
+				tmr.cancel();
+				return;
+			}
+			// Si no está viva (está en la pool esperando), solo saltamos este frame. NO CANCELAR.
+			if (!splashTarget.alive) return;
+
+			if (splashTarget.animation.curAnim != null) {
+				var name = splashTarget.animation.curAnim.name.toUpperCase();
+				if (name.indexOf('LEFT') != -1 || name.indexOf('PURPLE') != -1){ shader.hue = -60; shader.saturation = 0;}    // Rosa
+				else if (name.indexOf('DOWN') != -1 || name.indexOf('BLUE') != -1){ shader.hue = 180; shader.saturation = -10;}  // Cian
+				else if (name.indexOf('UP') != -1 || name.indexOf('GREEN') != -1){ shader.hue = 120; shader.saturation = 10;}   // Verde
+				else if (name.indexOf('RIGHT') != -1 || name.indexOf('RED') != -1) {shader.hue = 0; shader.saturation = 0;}// Rojo
+			}
+		}, 0);
+	}
+
+	override function buildHoldCoverSprite(target:NoteHoldCover):Void
+	{
+		super.buildHoldCoverSprite(target);
+
+		
+
+		var shader = new AdjustColorShader();
+		target.glow.shader = shader; // Aplicamos el shader al brillo (glow) de la nota larga
+
+		var coverTarget = target.glow;
+		var holdCoverObject = target; // Guardamos la referencia a target
+
+		new FlxTimer().start(0.02, function(tmr:FlxTimer) {
+			if (holdCoverObject == null || coverTarget == null) {
+				tmr.cancel();
+				return;
+			}
+			// IMPORTANTE: No cancelar si !alive, para que funcione al reciclarse.
+			if (!holdCoverObject.alive) return;
+
+			if (coverTarget.animation.curAnim != null) {
+				var name = coverTarget.animation.curAnim.name.toUpperCase();
+				// Los nombres de animación suelen ser 'holdCoverPurple', 'holdCoverBlue', etc.
+				if (name.indexOf('PURPLE') != -1 || name.indexOf('LEFT') != -1) shader.hue = -60;
+				else if (name.indexOf('BLUE') != -1 || name.indexOf('DOWN') != -1) shader.hue = 180;
+				else if (name.indexOf('GREEN') != -1 || name.indexOf('UP') != -1) shader.hue = 120;
+				else if (name.indexOf('RED') != -1 || name.indexOf('RIGHT') != -1) shader.hue = 0;
+			}
+		}, 0);
+	}
+}

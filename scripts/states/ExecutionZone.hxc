@@ -1,0 +1,37 @@
+import funkin.ui.MusicBeatState;
+import funkin.graphics.FunkinSprite;
+import funkin.Paths;
+import funkin.graphics.FunkinCamera;
+import yeah.states.UiHud;
+
+class ExecutionZone extends MusicBeatState {
+
+    var window:FunkinSprite;
+    var meter:FunkinSprite;
+    var notepad:FunkinSprite;
+    var camera:FunkinCamera;
+    var uiHUD:UiHud;
+
+    override function create() {
+        super.create();
+
+        uiHUD = new UiHud(0, false);
+
+        camera = new FunkinCamera('camera', 0, 0, FlxG.width, FlxG.height, 1);
+
+        window = new FunkinSprite();
+        window.loadGraphic(Paths.image('states/ex/window'));
+
+        meter = new FunkinSprite();
+        meter.loadGraphic(Paths.image('states/ex/meter'));
+
+        notepad = new FunkinSprite();
+        notepad.loadGraphic(Paths.image('states/ex/notepad'));
+
+        add(notepad);
+        add(meter);
+        add(window);
+
+
+    }
+}

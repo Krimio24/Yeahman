@@ -1,0 +1,38 @@
+{
+ "version": "2.2.4",
+ "songName": "Devilkid",
+ "artist": "Fueg0",
+ "charter": "Fidy50",
+ "offsets": { },
+ "playData": {
+  "difficulties": [
+   "normal"
+  ],
+  "characters": {
+   "player": "newbf",
+   "girlfriend": "kurai",
+   "opponent": "dareireg",
+   "opponentVocals": [
+    "darei"
+   ],
+   "playerVocals": [
+    "newbf"
+   ]
+  },
+  "stage": "dareibg",
+  "noteStyle": "yerman",
+  "ratings": {
+   "normal": 3
+  },
+  "previewEnd": 0
+ },
+ "generatedBy": "Friday Night Funkin' - v0.8.4",
+ "timeChanges": [
+  {
+   "t": 0,
+   "b": 0,
+   "bpm": 155,
+   "bt": [4, 4, 4, 4]
+  }
+ ]
+}

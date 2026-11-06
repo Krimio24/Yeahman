@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "J",
+    "assetPath": "characters/j",
+    "singTime": 6.1,
+    "isPixel": false,
+    "scale": 0.5,
+    "healthIcon": {
+        "id": "jcyym",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "singLEFT",
+            "prefix": "j l",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "j d",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "j u",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "j r",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "idle",
+            "prefix": "j i",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 4,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}

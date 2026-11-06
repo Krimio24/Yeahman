@@ -1,0 +1,67 @@
+{
+    "version": "1.0.0",
+    "name": "Boeman",
+    "assetPath": "characters/boeman",
+    "singTime": 4,
+    "isPixel": false,
+    "scale": 1.3,
+    "healthIcon": {
+        "id": "boeman",
+        "isPixel": false,
+        "flipX": false,
+        "scale": 1
+    },
+    "animations": [
+        {
+            "name": "idle",
+            "prefix": "idle instance 1",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singLEFT",
+            "prefix": "left instance 1",
+            "offsets": [
+                -12,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singRIGHT",
+            "prefix": "right instance 1",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singUP",
+            "prefix": "up instance 1",
+            "offsets": [
+                0,
+                35
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        },
+        {
+            "name": "singDOWN",
+            "prefix": "down instance 1",
+            "offsets": [
+                0,
+                0
+            ],
+            "frameRate": 12,
+            "frameIndices": []
+        }
+    ],
+    "flipX": false
+}
